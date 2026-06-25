@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
-import 'app_spacing.dart';
 
 /// Available visual themes.
 ///
 /// Default is [light]; [dark] and [candlelight] are user-selectable.
 enum AppThemeMode {
+  /// "Vellum" — warm parchment, daytime.
   light,
+
+  /// "Night Vigil" — warm charcoal, nighttime.
   dark,
+
+  /// "Candlelight" — warmer amber dark, evening prayer.
   candlelight,
 }
 
 /// Builds Material 3 [ThemeData] from our design tokens.
 ///
 /// All theme configuration lives here — feature code must never build
-/// ThemeData directly.
+/// [ThemeData] directly.
 class AppTheme {
   AppTheme._();
 
@@ -28,13 +32,15 @@ class AppTheme {
           onPrimary: AppColors.lightOnPrimary,
           primaryContainer: AppColors.lightPrimaryContainer,
           secondary: AppColors.lightSecondary,
+          onSecondary: AppColors.lightOnSurface,
           tertiary: AppColors.lightTertiary,
           surface: AppColors.lightSurface,
-          surfaceVariant: AppColors.lightSurfaceVariant,
+          surfaceContainerHighest: AppColors.lightSurfaceVariant,
           onSurface: AppColors.lightOnSurface,
           onSurfaceVariant: AppColors.lightOnSurfaceVariant,
           outline: AppColors.lightOutline,
           error: AppColors.lightError,
+          onError: AppColors.lightOnPrimary,
         ),
       AppThemeMode.dark => const ColorScheme(
           brightness: Brightness.dark,
@@ -42,13 +48,15 @@ class AppTheme {
           onPrimary: AppColors.darkOnPrimary,
           primaryContainer: AppColors.darkPrimaryContainer,
           secondary: AppColors.darkSecondary,
+          onSecondary: AppColors.darkOnSurface,
           tertiary: AppColors.darkTertiary,
           surface: AppColors.darkSurface,
-          surfaceVariant: AppColors.darkSurfaceVariant,
+          surfaceContainerHighest: AppColors.darkSurfaceVariant,
           onSurface: AppColors.darkOnSurface,
           onSurfaceVariant: AppColors.darkOnSurfaceVariant,
           outline: AppColors.darkOutline,
           error: AppColors.darkError,
+          onError: AppColors.darkOnPrimary,
         ),
       AppThemeMode.candlelight => const ColorScheme(
           brightness: Brightness.dark,
@@ -56,13 +64,15 @@ class AppTheme {
           onPrimary: AppColors.candleOnPrimary,
           primaryContainer: AppColors.candlePrimaryContainer,
           secondary: AppColors.candleSecondary,
+          onSecondary: AppColors.candleOnSurface,
           tertiary: AppColors.candleTertiary,
           surface: AppColors.candleSurface,
-          surfaceVariant: AppColors.candleSurfaceVariant,
+          surfaceContainerHighest: AppColors.candleSurfaceVariant,
           onSurface: AppColors.candleOnSurface,
           onSurfaceVariant: AppColors.candleOnSurfaceVariant,
           outline: AppColors.candleOutline,
           error: AppColors.candleError,
+          onError: AppColors.candleOnPrimary,
         ),
     };
   }
@@ -171,6 +181,9 @@ class AppTheme {
   }
 
   /// Returns [ThemeMode] for Riverpod / MaterialApp consumption.
+  ///
+  /// Note: [candlelight] maps to [ThemeMode.dark]; the candlelight *look* is
+  /// applied via [themeData], independent of this system classification.
   static ThemeMode materialThemeMode(AppThemeMode mode) {
     return switch (mode) {
       AppThemeMode.light => ThemeMode.light,

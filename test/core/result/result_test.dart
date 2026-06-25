@@ -16,7 +16,8 @@ void main() {
 
       expect(result.isFailure, isTrue);
       expect(result.isSuccess, isFalse);
-      expect(result.failure, isA<LocalFailure>());
+      expect(result, isA<Failure<int>>());
+      expect((result as Failure<int>).failure, isA<LocalFailure>());
       expect(result.failure.messageKey, 'errors.io');
     });
 

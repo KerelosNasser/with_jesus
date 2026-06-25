@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Color tokens are self-documenting; documenting each hex adds no value.
+// ignore_for_file: public_member_api_docs
+
 /// Color tokens from design.md — "Vellum" (light), "Night Vigil" (dark),
 /// and optional "Candlelight" (warm-dark for evening prayer).
 ///

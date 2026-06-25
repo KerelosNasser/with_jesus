@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+// Documenting every numeric constant here adds no value; the names are the docs.
+// ignore_for_file: public_member_api_docs
 
 /// Spacing tokens from design.md — a single 4 dp base grid.
 ///

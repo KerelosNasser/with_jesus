@@ -1,24 +1,45 @@
 /// Sealed type representing the outcome of an operation that can succeed or fail.
 ///
 /// Used at all layer boundaries so the UI renders explicit empty/error states
-/// instead of relying on uncaught exceptions.
+/// instead of relying on uncaught exceptions. Example:
+///
+/// ```dart
+/// Result<List<Hymn>> result = await repository.getHymns();
+/// switch (result) {
+///   case Success(:final data):
+///     renderHymns(data);
+///   case Failure(:final failure):
+///     renderError(failure);
+/// }
+/// ```
+library;
+
+import '../errors/app_failure.dart';
+
+/// Outcome of an operation: either [Success] with data or [Failure] with an
+/// [AppFailure]. Pattern-match rather than throwing across layers.
 sealed class Result<T> {
   const Result();
 
-  /// Convenience constructors.
-  factory Result.success(T data) = Success<T>;
-  factory Result.failure(AppFailure failure) = Failure<T>;
+  /// Creates a successful [Result] carrying [data].
+  const factory Result.success(T data) = Success<T>;
+
+  /// Creates a failed [Result] carrying [failure].
+  const factory Result.failure(AppFailure failure) = Failure<T>;
 
   /// Returns the success value, or throws [StateError] if this is a [Failure].
-  T get requireData {
-    final self = this;
-    if (self is Success<T>) return self.data;
-    throw StateError('Cannot get data from Failure: ${(this as Failure<T>).failure}');
-  }
+  ///
+  /// Prefer pattern-matching; use this only when failure is logically impossible.
+  T get requireData => switch (this) {
+        Success<T>(:final data) => data,
+        Failure<T>(:final failure) =>
+          throw StateError('Cannot get data from a Failure: $failure'),
+      };
 }
 
 /// Successful result carrying [data].
 final class Success<T> extends Result<T> {
+  /// Creates a success value.
   const Success(this.data);
 
   /// The success value.
@@ -38,9 +59,10 @@ final class Success<T> extends Result<T> {
 
 /// Failed result carrying an [AppFailure].
 final class Failure<T> extends Result<T> {
+  /// Creates a failure.
   const Failure(this.failure);
 
-  /// The failure describing what went wrong.
+  /// Describes what went wrong.
   final AppFailure failure;
 
   @override
@@ -57,17 +79,13 @@ final class Failure<T> extends Result<T> {
   String toString() => 'Result.failure($failure)';
 }
 
-/// Maps the success value with [fn] if this is a [Success], otherwise
-/// propagates the [Failure] unchanged.
+/// Pattern helpers on [Result].
 extension ResultMap<T> on Result<T> {
-  /// Transforms the success data using [fn]. Failure passes through.
-  Result<R> map<R>(R Function(T data) fn) {
-    final self = this;
-    return switch (self) {
-      Success<T>(:final data) => Result.success(fn(data)),
-      Failure<T>(:final failure) => Result<R>.failure(failure),
-    };
-  }
+  /// Transforms the success data using [fn]. Failure passes through unchanged.
+  Result<R> map<R>(R Function(T data) fn) => switch (this) {
+        Success<T>(:final data) => Result.success(fn(data)),
+        Failure<T>(:final failure) => Result<R>.failure(failure),
+      };
 
   /// Returns true if this is a [Success].
   bool get isSuccess => this is Success<T>;
