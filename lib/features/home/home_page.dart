@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_spacing.dart';
-import '../../shared/widgets/widgets.dart';
+import 'presentation/widgets/continue_reading_banner.dart';
+import 'presentation/widgets/journey_grid.dart';
+import 'presentation/widgets/shortcuts_row.dart';
+import 'presentation/widgets/verse_card.dart';
 
 /// Home screen — the main hub of مع يسوع.
-///
-/// Displays a greeting, quick navigation cards (daily verse, hymns, focus
-/// retreat, journal), and a top bar with menu/profile actions.
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -22,20 +22,16 @@ class HomePage extends StatelessWidget {
           // ── TopAppBar ──
           SliverAppBar(
             pinned: true,
-            floating: false,
             backgroundColor: colors.surface,
             foregroundColor: colors.primary,
             elevation: 0,
-            scrolledUnderElevation: 0,
             leading: IconButton(
               icon: Icon(Icons.menu, color: colors.primary),
               onPressed: () {},
             ),
             title: Text(
               'مع يسوع',
-              style: textTheme.headlineMedium?.copyWith(
-                color: colors.primary,
-              ),
+              style: textTheme.headlineMedium?.copyWith(color: colors.primary),
             ),
             centerTitle: true,
             actions: [
@@ -46,95 +42,36 @@ class HomePage extends StatelessWidget {
             ],
           ),
 
-          // ── Greeting Header ──
-          SliverToBoxAdapter(
+          // ── Hero VerseCard ──
+          const SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.containerPadding,
-              ).copyWith(top: AppSpacing.lg, bottom: AppSpacing.xxl),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'صباح الخير',
-                    style: textTheme.headlineMedium,
-                  ),
-                  const SizedBox(height: AppSpacing.sm),
-                  Text(
-                    'دعنا نبدأ يومك بكلمة الله',
-                    style: textTheme.bodyLarge?.copyWith(
-                      color: colors.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
+              padding: EdgeInsets.only(top: AppSpacing.md, bottom: AppSpacing.lg),
+              child: VerseCard(),
             ),
           ),
 
-          // ── Feature Cards Grid ──
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.containerPadding,
-            ),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: AppSpacing.sm,
-                crossAxisSpacing: AppSpacing.sm,
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => _FeatureCard(item: _featureItems[index]),
-                childCount: _featureItems.length,
-              ),
+          // ── Shortcuts Row ──
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: AppSpacing.xl),
+              child: ShortcutsRow(),
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Feature card data & widget
-// ─────────────────────────────────────────────────────────────────────────────
+          // ── Continue Reading Banner ──
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: AppSpacing.xl),
+              child: ContinueReadingBanner(),
+            ),
+          ),
 
-/// Data for a single feature card on the home screen.
-class _FeatureItem {
-  final String label;
-  final IconData icon;
-
-  const _FeatureItem({required this.label, required this.icon});
-}
-
-/// The four home-screen feature cards.
-const _featureItems = <_FeatureItem>[
-  _FeatureItem(label: 'آية اليوم', icon: Icons.menu_book),
-  _FeatureItem(label: 'الألحان', icon: Icons.music_note),
-  _FeatureItem(label: 'خلوة التركيز', icon: Icons.self_improvement),
-  _FeatureItem(label: 'المذكرات', icon: Icons.book),
-];
-
-/// A single feature card: icon + label inside a [SurfaceCard].
-class _FeatureCard extends StatelessWidget {
-  final _FeatureItem item;
-
-  const _FeatureCard({required this.item});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return SurfaceCard(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(item.icon, size: 36, color: colors.primary),
-          const SizedBox(height: AppSpacing.sm),
-          Text(
-            item.label,
-            style: textTheme.bodyMedium,
-            textAlign: TextAlign.center,
+          // ── Randomized Journey Grid ──
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: AppSpacing.xxl),
+              child: JourneyGrid(),
+            ),
           ),
         ],
       ),
