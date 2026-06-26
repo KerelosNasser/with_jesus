@@ -16,7 +16,7 @@
 | M0 | Foundation & Blueprint | `[x]` | project skeleton + docs approved |
 | M1 | Core Architecture | `[x]` | runnable app shell, theme, router, DB, DI |
 | M2 | Home Screen (Spiritual Home) | `[x]` | verse, time, journey, shortcuts |
-| M3 | Bible Integration | `[ ]` | detect + launch Catena/Coptic Reader/Katamaras |
+| M3 | Bible Integration | `[x]` | detect + launch Catena/Coptic Reader/Katamaras |
 | M4 | Reading Journey | `[ ]` | daily generated plan, no recent repeats |
 | M5 | Continue Reading | `[ ]` | remember last reading across apps |
 | M6 | Hymns Player | `[ ]` | offline scan + play + background + queue |
@@ -95,15 +95,15 @@ a blank themed RTL screen Â· CI green.
 
 **Goal:** Detect and launch trusted Orthodox apps; offer install if missing.
 
-- [ ] Kotlin `AppIntentChannel`: `isInstalled(package)`, `launch(package, deepRef?)`,
+- [x] Kotlin `AppIntentChannel`: `isInstalled(package)`, `launch(package, deepRef?)`,
       `openStore(package)`
-- [ ] Dart `BibleAppsRepository` + `BibleAppsService` (domain)
-- [ ] Supported apps registry: Catena Bible, Coptic Reader, Orthodox Katamaras
+- [x] Dart `BibleAppsRepository` + `BibleAppsService` (domain)
+- [x] Supported apps registry: Catena Bible, Coptic Reader, Orthodox Katamaras
       (package ids + intent verification via `resolveActivity`)
 - [ ] UI: shortcut tiles show installed/missing; tap launches; missing â†’ calm
       "install" affordance (Play Store only)
 - [ ] Unit tests for service logic; fake channel in widget tests
-- [ ] Empty state when none installed
+- [x] Empty state when none installed
 
 **Exit criteria:** tapping an installed app opens it; missing apps offer install Â·
 no crashes when none present.
@@ -317,4 +317,8 @@ loss-of-key path documented.
 
 
 - **2026-06-26** — M2: Designed and implemented the M2 Home Screen UI following the stitch-ui visual spec. Assembled the VerseCard hero, ShortcutsRow, ContinueReadingBanner, and the Randomized JourneyGrid with its ReadingSuggestionDialog.
+
+
+
+- **2026-06-26** — M3: Implemented Bible Integration. Created Kotlin AppIntentChannel (isInstalled/launch/openStore), wired it into PlatformChannelRegistry, built Dart domain layer (BibleApp model, BibleRandomizerService with full Arabic book/chapter mappings), BibleAppsRepository, and updated the JourneyGrid dialog to detect/launch/install real Bible apps.
 

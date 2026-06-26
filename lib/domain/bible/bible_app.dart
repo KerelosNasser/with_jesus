@@ -13,7 +13,5 @@ class BibleApp {
 }
 
 const kSupportedBibleApps = [
-  BibleApp(id: 'catena', label: 'Catena Bible', packageId: 'com.catena'),
   BibleApp(id: 'coptic_reader', label: 'Coptic Reader', packageId: 'com.app.copticreader'),
-  BibleApp(id: 'orsozoxi', label: 'أرثوذكسى + القطمارس', packageId: 'coptic.avabishoy.katamars'),
 ];
