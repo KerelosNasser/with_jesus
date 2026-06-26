@@ -79,4 +79,5 @@ dev_dependencies:
   patrol: ^3.15.2
 
 flutter:
+  generate: true
   uses-material-design: true
