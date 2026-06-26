@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>الإعدادات</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#ebe8e1",
+                      "on-background": "#1c1c18",
+                      "on-secondary-fixed-variant": "#4c4634",
+                      "primary-fixed-dim": "#a0d3a5",
+                      "surface-dim": "#dcdad3",
+                      "outline-variant": "#c1c9be",
+                      "primary": "#204e2b",
+                      "secondary-fixed-dim": "#cfc6ae",
+                      "inverse-on-surface": "#f3f0ea",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#22502d",
+                      "on-tertiary-fixed-variant": "#6f3800",
+                      "on-primary-container": "#afe2b3",
+                      "tertiary-fixed": "#ffdcc4",
+                      "background": "#fcf9f2",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e5e2db",
+                      "inverse-surface": "#31312c",
+                      "secondary": "#645e4b",
+                      "surface-container": "#f0eee7",
+                      "on-primary": "#ffffff",
+                      "inverse-primary": "#a0d3a5",
+                      "surface": "#fcf9f2",
+                      "on-secondary-container": "#6b6450",
+                      "error-container": "#ffdad6",
+                      "on-surface": "#1c1c18",
+                      "surface-variant": "#e5e2db",
+                      "surface-tint": "#3a6843",
+                      "on-surface-variant": "#414941",
+                      "on-primary-fixed": "#00210a",
+                      "surface-bright": "#fcf9f2",
+                      "tertiary": "#6c3600",
+                      "tertiary-container": "#8f4a00",
+                      "secondary-fixed": "#ece2c9",
+                      "secondary-container": "#ece2c9",
+                      "surface-container-low": "#f6f3ec",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#ffb781",
+                      "on-secondary": "#ffffff",
+                      "primary-container": "#386641",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#201b0c",
+                      "outline": "#727970",
+                      "primary-fixed": "#bcefc0",
+                      "on-tertiary-fixed": "#2f1400",
+                      "on-tertiary-container": "#ffcba6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "component-gap": "12px",
+                      "unit": "8px",
+                      "container-padding": "24px",
+                      "section-margin": "40px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Noto Sans Arabic"],
+                      "body-md": ["Noto Sans Arabic"],
+                      "headline-lg-mobile": ["Noto Sans Arabic"],
+                      "headline-lg": ["Noto Sans Arabic"],
+                      "label-lg": ["Noto Sans Arabic"],
+                      "display-lg": ["Noto Sans Arabic"],
+                      "title-lg": ["Noto Sans Arabic"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "0", "fontWeight": "400"}],
+                      "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #386641;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #386641;
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(-100%);
+            right: 2px;
+            border-color: white;
+            background-color: white;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen pb-12">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim sticky top-0 z-40">
+<div class="flex justify-between items-center w-full px-container-padding h-16">
+<button aria-label="Menu" class="p-2 -mx-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg font-medium text-primary dark:text-primary-fixed-dim text-center flex-1">
+                مع يسوع
+            </h1>
+<button aria-label="Profile" class="p-2 -mx-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<main class="px-container-padding pt-6 max-w-2xl mx-auto">
+<div class="mb-8">
+<h2 class="font-title-lg text-title-lg text-on-surface mb-2">الإعدادات</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">تخصيص تجربتك في التطبيق</p>
+</div>
+<!-- Group 1: General -->
+<section class="bg-surface-container-low rounded-xl mb-section-margin shadow-sm overflow-hidden border border-surface-container-highest">
+<ul class="divide-y divide-surface-container-highest">
+<!-- Language -->
+<li>
+<button class="w-full flex items-center justify-between px-4 py-5 hover:bg-surface-container-high transition-colors text-right group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="language">language</span>
+<span class="font-body-lg text-body-lg text-on-surface">اللغة</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-body-md text-body-md text-on-surface-variant">العربية</span>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_left">chevron_left</span>
+</div>
+</button>
+</li>
+<!-- Theme -->
+<li>
+<button class="w-full flex items-center justify-between px-4 py-5 hover:bg-surface-container-high transition-colors text-right group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="palette">palette</span>
+<span class="font-body-lg text-body-lg text-on-surface">المظهر</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-body-md text-body-md text-on-surface-variant">فاتح</span>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_left">chevron_left</span>
+</div>
+</button>
+</li>
+<!-- Font Size -->
+<li>
+<button class="w-full flex items-center justify-between px-4 py-5 hover:bg-surface-container-high transition-colors text-right group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="format_size">format_size</span>
+<span class="font-body-lg text-body-lg text-on-surface">حجم الخط</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-body-md text-body-md text-on-surface-variant">متوسط</span>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_left">chevron_left</span>
+</div>
+</button>
+</li>
+</ul>
+</section>
+<!-- Group 2: Focus & Privacy -->
+<section class="bg-surface-container-low rounded-xl mb-section-margin shadow-sm overflow-hidden border border-surface-container-highest">
+<ul class="divide-y divide-surface-container-highest">
+<!-- Focus Mode -->
+<li>
+<div class="w-full flex items-center justify-between px-4 py-5 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline" data-icon="self_improvement">self_improvement</span>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface">وضع التركيز</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant">إخفاء المشتتات أثناء الصلاة</span>
+</div>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-surface-container-highest border-4 border-surface-container-low appearance-none cursor-pointer z-10 top-0 bottom-0 m-auto right-0" id="focus-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant cursor-pointer" for="focus-toggle"></label>
+</div>
+</div>
+</li>
+<!-- Privacy -->
+<li>
+<button class="w-full flex items-center justify-between px-4 py-5 hover:bg-surface-container-high transition-colors text-right group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="lock">lock</span>
+<span class="font-body-lg text-body-lg text-on-surface">الخصوصية</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="chevron_left">chevron_left</span>
+</div>
+</button>
+</li>
+</ul>
+</section>
+</main>
+</body></html>

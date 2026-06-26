@@ -44,6 +44,7 @@ Every agent below shares one ultimate loyalty: **the product philosophy in
    `progress-tracker.md` Session Log every session.
 10. **Honesty.** Report failures, unknowns, and capability limits plainly. Never
     claim a feature works when it wasn't verified.
+11. **Use RTK.** Use RTK when running commands.
 
 ---
 

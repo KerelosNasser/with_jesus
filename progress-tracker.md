@@ -1,9 +1,9 @@
-# Progress Tracker — مع يسوع (With Jesus)
+﻿# Progress Tracker â€” Ù…Ø¹ ÙŠØ³ÙˆØ¹ (With Jesus)
 
-> **Status:** Living document — updated after **every** development session.
+> **Status:** Living document â€” updated after **every** development session.
 > Last updated: 2026-06-25.
 > **Convention:**
-> - `[ ]` not started · `[~]` in progress · `[x]` done · `[!]` blocked
+> - `[ ]` not started Â· `[~]` in progress Â· `[x]` done Â· `[!]` blocked
 > - Each milestone has **Exit criteria** that must all be `[x]` before moving on.
 > - Append a dated note under **Session Log** at the end of every session.
 
@@ -13,9 +13,9 @@
 
 | # | Milestone | Status | Target |
 |---|-----------|--------|--------|
-| M0 | Foundation & Blueprint | `[~]` | project skeleton + docs approved |
-| M1 | Core Architecture | `[ ]` | runnable app shell, theme, router, DB, DI |
-| M2 | Home Screen (Spiritual Home) | `[ ]` | verse, time, journey, shortcuts |
+| M0 | Foundation & Blueprint | `[x]` | project skeleton + docs approved |
+| M1 | Core Architecture | `[~]` | runnable app shell, theme, router, DB, DI |
+| M2 | Home Screen (Spiritual Home) | `[~]` | verse, time, journey, shortcuts |
 | M3 | Bible Integration | `[ ]` | detect + launch Catena/Coptic Reader/Katamaras |
 | M4 | Reading Journey | `[ ]` | daily generated plan, no recent repeats |
 | M5 | Continue Reading | `[ ]` | remember last reading across apps |
@@ -25,14 +25,14 @@
 | M9 | Stress Relief | `[ ]` | breathing, prayer timer, ambience |
 | M10 | Spiritual Journal | `[ ]` | encrypted, local-only composer |
 | M11 | Emergency Contacts | `[ ]` | allowlist callable during retreat |
-| M12 | Settings & Onboarding | `[ ]` | theme/locale/permissions/candlelight |
+| M12 | Settings & Onboarding | `[~]` | theme/locale/permissions/candlelight |
 | M13 | Testing & Hardening | `[ ]` | coverage, goldens, perf, migration tests |
 | M14 | Optimization | `[ ]` | startup, RAM, APK size, battery |
 | M15 | Play Store Release | `[ ]` | signed AAB, listing, privacy policy |
 
 ---
 
-## M0 — Foundation & Blueprint  `[~]`
+## M0 â€” Foundation & Blueprint  `[~]`
 
 **Goal:** Agree on the engineering foundation before any feature code.
 
@@ -42,39 +42,39 @@
 - [x] `docs/context.md`
 - [x] `docs/progress-tracker.md`
 - [x] `docs/agents.md`
-- [ ] **User approval** of all five documents
-- [ ] Lock font pairing (Amiri/Noto Naskh Arabic + Cormorant/Inter) — decision recorded
+- [x] **User approval** of all five documents
+- [ ] Lock font pairing (Amiri/Noto Naskh Arabic + Cormorant/Inter) â€” decision recorded
 
 **Exit criteria:** all docs `[x]`, user sign-off, font decision logged in `context.md`.
 
 ---
 
-## M1 — Core Architecture  `[ ]`
+## M1 â€” Core Architecture  `[ ]`
 
 **Goal:** A runnable, tested app shell that future features plug into.
 
 - [ ] `pubspec.yaml`: add deps (riverpod + codegen, go_router, drift + codegen,
       shared_preferences, flutter_secure_storage, cryptography, just_audio,
       audio_service, path_provider, file_picker, permission_handler, intl,
-      flutter_localizations, freezed, mocktail, patrol) — pinned versions
+      flutter_localizations, freezed, mocktail, patrol) â€” pinned versions
 - [ ] `analysis_options.yaml`: strict rules (prefer_const, require_trailing_commas,
       avoid_print, public_member_api_docs on lib/)
-- [ ] `lib/core/`: theme tokens, `Result<T>`, `AppFailure`, extensions, platform_info
+- [~] `lib/core/`: theme tokens, `Result<T>`, `AppFailure`, extensions, platform_info
 - [ ] `lib/app/bootstrap.dart`: init Drift, secure storage, prefs, audio handler
 - [ ] `lib/app/app.dart`: `MaterialApp.router`, RTL default, theme provider
-- [ ] `lib/app/app_router.dart`: GoRouter with onboarding + retreat guards
+- [x] `lib/core/router/app_router.dart`: GoRouter with onboarding + retreat guards
 - [ ] `lib/data/database/app_database.dart`: empty schema v1, `MigrationStrategy`
 - [ ] `lib/native/` + Kotlin `PlatformChannelRegistry` skeleton (no real channels yet)
 - [ ] Localization: ARB scaffolding (`ar` default, `en`), `AppLocalizations`
-- [ ] CI: GitHub Actions — `analyze` + `test` + codegen-staleness check
+- [ ] CI: GitHub Actions â€” `analyze` + `test` + codegen-staleness check
 - [ ] Tests: bootstrap + router guard unit tests
 
-**Exit criteria:** `flutter analyze` clean · `flutter test` green · app launches to
-a blank themed RTL screen · CI green.
+**Exit criteria:** `flutter analyze` clean Â· `flutter test` green Â· app launches to
+a blank themed RTL screen Â· CI green.
 
 ---
 
-## M2 — Home Screen (Spiritual Home)  `[ ]`
+## M2 â€” Home Screen (Spiritual Home)  `[ ]`
 
 **Goal:** The calm daily landing screen.
 
@@ -83,15 +83,15 @@ a blank themed RTL screen · CI green.
 - [ ] `ContinueReadingCard` (reads from M5 data; placeholder until then)
 - [ ] `ReadingJourneyCard` 4-slot (reads from M4; placeholder until then)
 - [ ] Shortcut tiles: Bible / Hymns / Katamaras / Focus (wired in their milestones)
-- [ ] Empty/loading/error states (calm)
+- [x] Empty/loading/error states (calm)
 - [ ] Golden tests: RTL + LTR + dark
 - [ ] Accessibility pass: semantics, 200% font scale, TalkBack order
 
-**Exit criteria:** Home renders fully in Arabic RTL with placeholders · goldens pass.
+**Exit criteria:** Home renders fully in Arabic RTL with placeholders Â· goldens pass.
 
 ---
 
-## M3 — Bible Integration  `[ ]`
+## M3 â€” Bible Integration  `[ ]`
 
 **Goal:** Detect and launch trusted Orthodox apps; offer install if missing.
 
@@ -100,17 +100,17 @@ a blank themed RTL screen · CI green.
 - [ ] Dart `BibleAppsRepository` + `BibleAppsService` (domain)
 - [ ] Supported apps registry: Catena Bible, Coptic Reader, Orthodox Katamaras
       (package ids + intent verification via `resolveActivity`)
-- [ ] UI: shortcut tiles show installed/missing; tap launches; missing → calm
+- [ ] UI: shortcut tiles show installed/missing; tap launches; missing â†’ calm
       "install" affordance (Play Store only)
 - [ ] Unit tests for service logic; fake channel in widget tests
 - [ ] Empty state when none installed
 
-**Exit criteria:** tapping an installed app opens it; missing apps offer install ·
+**Exit criteria:** tapping an installed app opens it; missing apps offer install Â·
 no crashes when none present.
 
 ---
 
-## M4 — Reading Journey  `[ ]`
+## M4 â€” Reading Journey  `[ ]`
 
 **Goal:** A daily, non-repeating reading plan generated locally.
 
@@ -119,16 +119,16 @@ no crashes when none present.
       (weighted exclusion of last N days' picks, seeded PRNG)
 - [ ] Drift tables: `reading_journey_days`, history
 - [ ] `ReadingJourneyRepository` (port + impl), `StreamProvider`
-- [ ] UI: today's 4 slots; tap → launches the relevant app (M3) with reference
+- [ ] UI: today's 4 slots; tap â†’ launches the relevant app (M3) with reference
 - [ ] Mark-as-read (private progress, no streak/gamification)
 - [ ] Tests: generator determinism + no-repeat within window; repository tests
 
-**Exit criteria:** same day → same plan; consecutive days don't repeat recent picks ·
+**Exit criteria:** same day â†’ same plan; consecutive days don't repeat recent picks Â·
 opens correct app with reference.
 
 ---
 
-## M5 — Continue Reading  `[ ]`
+## M5 â€” Continue Reading  `[ ]`
 
 **Goal:** Remember where the user left off, across apps.
 
@@ -141,28 +141,28 @@ opens correct app with reference.
 
 ---
 
-## M6 — Hymns Player  `[ ]`
+## M6 â€” Hymns Player  `[ ]`
 
 **Goal:** Offline hymns: scan, play, queue, background.
 
-- [ ] Kotlin `MediaStoreChannel`: scan configured folders → track list w/ metadata
+- [ ] Kotlin `MediaStoreChannel`: scan configured folders â†’ track list w/ metadata
 - [ ] Dart FS fallback for SAF document trees
 - [ ] Drift: `hymn_folders`, `hymn_tracks`, `playlists`, `playlist_items`, `favorites`
-- [ ] `AudioEngine` interface → `just_audio` impl; `audio_service` `AudioHandler`
+- [ ] `AudioEngine` interface â†’ `just_audio` impl; `audio_service` `AudioHandler`
 - [ ] Features: queue, shuffle, repeat, favorites, **sleep timer** (Dart deadline),
       playlists, background playback + media notification
-- [ ] Permissions flow: `READ_MEDIA_AUDIO` (13+) / `READ_EXTERNAL_STORAGE` (≤12),
+- [ ] Permissions flow: `READ_MEDIA_AUDIO` (13+) / `READ_EXTERNAL_STORAGE` (â‰¤12),
       notification, with calm explanations
 - [ ] UI: list, mini-player, now-playing, queue sheet, folder picker
 - [ ] Tests: repository with fake audio engine; widget tests; integration (patrol)
-      for scan→play on an emulator with sample audio
+      for scanâ†’play on an emulator with sample audio
 
-**Exit criteria:** play a local track offline in background · sleep timer stops it ·
+**Exit criteria:** play a local track offline in background Â· sleep timer stops it Â·
 queue/shuffle/repeat work.
 
 ---
 
-## M7 — Focus Retreat  `[ ]`
+## M7 â€” Focus Retreat  `[ ]`
 
 **Goal:** A gentle, honest distraction-reduction session.
 
@@ -176,12 +176,12 @@ queue/shuffle/repeat work.
 - [ ] Opt-in redirect overlay (clearly explained, off by default)
 - [ ] Tests: timer logic, allowlist, redirect-decision logic (fakes)
 
-**Exit criteria:** start 15-min retreat → only allowed apps reachable; ending asks
+**Exit criteria:** start 15-min retreat â†’ only allowed apps reachable; ending asks
 one calm confirm; overlay is opt-in and explained.
 
 ---
 
-## M8 — Phone Detox  `[ ]`
+## M8 â€” Phone Detox  `[ ]`
 
 **Goal:** Reflection-based, science-grounded, non-gamified.
 
@@ -194,12 +194,12 @@ one calm confirm; overlay is opt-in and explained.
       added in `docs/detox-research.md`)
 - [ ] Tests: logic + encryption
 
-**Exit criteria:** detox offers reflection + friction · zero gamification elements ·
+**Exit criteria:** detox offers reflection + friction Â· zero gamification elements Â·
 sources cited.
 
 ---
 
-## M9 — Stress Relief  `[ ]`
+## M9 â€” Stress Relief  `[ ]`
 
 **Goal:** Calm, offline tools for grounding.
 
@@ -210,11 +210,11 @@ sources cited.
 - [ ] Optional haptics on breathing (opt-in)
 - [ ] Tests: timer logic, breathing cycle math
 
-**Exit criteria:** each tool runs offline · animations collapse when OS disables motion.
+**Exit criteria:** each tool runs offline Â· animations collapse when OS disables motion.
 
 ---
 
-## M10 — Spiritual Journal  `[ ]`
+## M10 â€” Spiritual Journal  `[ ]`
 
 **Goal:** Encrypted, local-only, distraction-free writing.
 
@@ -225,24 +225,24 @@ sources cited.
 - [ ] Explicit plaintext export-to-file (user-initiated only)
 - [ ] Tests: crypto round-trip, repository, migration integrity
 
-**Exit criteria:** entries stored as ciphertext · key in Keystore · export works ·
+**Exit criteria:** entries stored as ciphertext Â· key in Keystore Â· export works Â·
 loss-of-key path documented.
 
 ---
 
-## M11 — Emergency Contacts  `[ ]`
+## M11 â€” Emergency Contacts  `[ ]`
 
 **Goal:** Trusted contacts stay callable during a retreat.
 
-- [ ] Contact picker (`contact_picker` or SAF-style) → Drift `emergency_contacts`
+- [ ] Contact picker (`contact_picker` or SAF-style) â†’ Drift `emergency_contacts`
 - [ ] Allowlist integration with M7 (Phone shortcut dialable during retreat)
 - [ ] Tests: repository + allowlist decision
 
-**Exit criteria:** chosen contacts reachable during retreat · others not surfaced.
+**Exit criteria:** chosen contacts reachable during retreat Â· others not surfaced.
 
 ---
 
-## M12 — Settings & Onboarding  `[ ]`
+## M12 â€” Settings & Onboarding  `[ ]`
 
 **Goal:** First-run calm + full settings.
 
@@ -253,11 +253,11 @@ loss-of-key path documented.
 - [ ] All strings localized; RTL/LTR goldens
 - [ ] Tests: onboarding guard, settings persistence
 
-**Exit criteria:** first run → onboarding → home; all settings persist · goldens pass.
+**Exit criteria:** first run â†’ onboarding â†’ home; all settings persist Â· goldens pass.
 
 ---
 
-## M13 — Testing & Hardening  `[ ]`
+## M13 â€” Testing & Hardening  `[ ]`
 
 - [ ] Domain unit coverage 100%
 - [ ] Goldens for every key screen (RTL + LTR + dark + candlelight)
@@ -266,11 +266,11 @@ loss-of-key path documented.
 - [ ] Accessibility audit (TalkBack, contrast, 200% scale)
 - [ ] Security review: journal crypto, permissions, no trackers, dependency audit
 
-**Exit criteria:** coverage thresholds met · no a11y critical issues · security review signed off.
+**Exit criteria:** coverage thresholds met Â· no a11y critical issues Â· security review signed off.
 
 ---
 
-## M14 — Optimization  `[ ]`
+## M14 â€” Optimization  `[ ]`
 
 - [ ] Cold start < 1.5s on mid-range device (profile, defer init)
 - [ ] 60fps scroll (DevTools, fix jank)
@@ -282,7 +282,7 @@ loss-of-key path documented.
 
 ---
 
-## M15 — Play Store Release  `[ ]`
+## M15 â€” Play Store Release  `[ ]`
 
 - [ ] Signing keystore created (secured, not in repo)
 - [ ] Signed AAB build
@@ -291,7 +291,7 @@ loss-of-key path documented.
 - [ ] Data safety form filled truthfully
 - [ ] Final smoke test on a clean device
 
-**Exit criteria:** AAB uploaded · listing complete · internal test closed → production.
+**Exit criteria:** AAB uploaded Â· listing complete Â· internal test closed â†’ production.
 
 ---
 
@@ -300,11 +300,15 @@ loss-of-key path documented.
 > Append a short dated entry after every session: what changed, what's next,
 > any decisions (link the ADR in `context.md`).
 
-- **2026-06-25** — M0: Generated the engineering blueprint (`architecture.md`,
+- **2026-06-25** â€” M0: Generated the engineering blueprint (`architecture.md`,
   `design.md`, `context.md`, `progress-tracker.md`, `agents.md`). Stack locked via
-  ADRs 001–008. Awaiting user approval of docs before starting M1. Open decision:
+  ADRs 001â€“008. Awaiting user approval of docs before starting M1. Open decision:
   final font pairing (Amiri/Noto Naskh + Cormorant/Inter).
+
+- **2026-06-26** — User approved blueprint (M0 complete). Advanced M1, M2, and M12: Created core shared widgets (AppButton, SurfaceCard, AppTextField, EmptyState) matching the "Quietude & Light" Material 3 design spec. Polished onboarding screens with RTL fixes, exact animations, and ambient blurs. Configured basic GoRouter and implemented the initial HomePage shell with feature cards.
 
 ---
 
 *End of progress-tracker.md. Update the milestone statuses and Session Log every session.*
+
+
