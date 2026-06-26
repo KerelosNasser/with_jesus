@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/widgets.dart';
+import '../../../../domain/bible/bible_randomizer_service.dart';
+import '../../../../data/bible/bible_apps_repository.dart';
 
 class JourneyGrid extends StatelessWidget {
   const JourneyGrid({super.key});
@@ -75,7 +77,9 @@ class _RandomizerDialog extends StatefulWidget {
 }
 
 class _RandomizerDialogState extends State<_RandomizerDialog> {
-  late int chapter;
+  late ({String book, int chapter}) _suggestion;
+  final _randomizer = BibleRandomizerService(random: Random());
+  final _repository = BibleAppsRepository();
 
   @override
   void initState() {
@@ -85,27 +89,50 @@ class _RandomizerDialogState extends State<_RandomizerDialog> {
 
   void _reroll() {
     setState(() {
-      chapter = Random().nextInt(50) + 1; // Fake logic for now
+      _suggestion = _randomizer.randomForCategory(widget.category);
     });
+  }
+
+  Future<void> _onRead() async {
+    final apps = await _repository.getInstalledApps();
+    if (apps.isEmpty) {
+      // No Bible apps installed → open store for first supported app
+      await _repository.openStore(_repository.getSupportedApps().first);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('يرجى تثبيت تطبيق للكتاب المقدس من المتجر')),
+      );
+      return;
+    }
+
+    // Try with deep ref first
+    final ref = 'https://www.bible.com/bible/${_suggestion.book}/${_suggestion.chapter}';
+    final launched = await _repository.launchApp(apps.first, deepRef: ref);
+
+    if (launched) {
+      if (mounted) Navigator.pop(context);
+      return;
+    }
+
+    // Retry without deepRef
+    final launchedFallback = await _repository.launchApp(apps.first);
+    if (launchedFallback) {
+      if (mounted) Navigator.pop(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('قراءة من ${widget.category}'),
-      content: Text('ما رأيك في قراءة الأصحاح $chapter؟'),
+      content: Text('ما رأيك في قراءة ${_suggestion.book} الأصحاح ${_suggestion.chapter}؟'),
       actions: [
         TextButton(
           onPressed: _reroll,
           child: const Text('تغيير'),
         ),
         FilledButton(
-          onPressed: () {
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Launching ${widget.category} chapter $chapter')),
-            );
-          },
+          onPressed: _onRead,
           child: const Text('موافق'),
         ),
       ],

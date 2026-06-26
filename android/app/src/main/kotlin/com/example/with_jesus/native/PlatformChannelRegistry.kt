@@ -1,5 +1,6 @@
 package com.example.with_jesus.native
 
+import android.content.Context
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
@@ -11,10 +12,8 @@ object PlatformChannelRegistry {
     private const val OVERLAY_CHANNEL = "app/native/overlay"
     private const val HAPTICS_CHANNEL = "app/native/haptics"
 
-    fun registerChannels(flutterEngine: FlutterEngine) {
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, INTENT_CHANNEL).setMethodCallHandler { call, result ->
-            result.notImplemented()
-        }
+    fun registerChannels(flutterEngine: FlutterEngine, context: Context) {
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, INTENT_CHANNEL).setMethodCallHandler(AppIntentChannel(context))
 
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, MEDIA_STORE_CHANNEL).setMethodCallHandler { call, result ->
             result.notImplemented()
