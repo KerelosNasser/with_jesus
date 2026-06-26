@@ -27,6 +27,7 @@ dependencies:
   # Local database (Drift / SQLite)
   drift: ^2.22.1
   sqlite3_flutter_libs: ^0.5.28
+  sqlite3: ^2.7.4
   path: ^1.9.0
 
   # Key-value preferences
