@@ -17,7 +17,7 @@
 | M1 | Core Architecture | `[x]` | runnable app shell, theme, router, DB, DI |
 | M2 | Home Screen (Spiritual Home) | `[x]` | verse, time, journey, shortcuts |
 | M3 | Bible Integration | `[x]` | detect + launch Catena/Coptic Reader/Katamaras |
-| M4 | Reading Journey | `[ ]` | daily generated plan, no recent repeats |
+| M4 | Reading Journey | `[x]` | daily generated plan, no recent repeats |
 | M5 | Continue Reading | `[ ]` | remember last reading across apps |
 | M6 | Hymns Player | `[ ]` | offline scan + play + background + queue |
 | M7 | Focus Retreat | `[ ]` | launcher + gentle redirect + timer |
@@ -114,13 +114,13 @@ no crashes when none present.
 
 **Goal:** A daily, non-repeating reading plan generated locally.
 
-- [ ] Seed data (assets): Prophet stories list, OT books/chapters, Psalms, NT
-- [ ] `ReadingJourneyGenerator`: deterministic-by-date + recent-history avoidance
+- [x] Seed data (assets): Prophet stories list, OT books/chapters, Psalms, NT
+- [x] `ReadingJourneyGenerator`: deterministic-by-date + recent-history avoidance
       (weighted exclusion of last N days' picks, seeded PRNG)
-- [ ] Drift tables: `reading_journey_days`, history
-- [ ] `ReadingJourneyRepository` (port + impl), `StreamProvider`
-- [ ] UI: today's 4 slots; tap â†’ launches the relevant app (M3) with reference
-- [ ] Mark-as-read (private progress, no streak/gamification)
+- [x] Drift tables: `reading_journey_days`, history
+- [x] `ReadingJourneyRepository` (port + impl), `StreamProvider`
+- [x] UI: today's 4 slots; tap â†’ launches the relevant app (M3) with reference
+- [x] Mark-as-read (private progress, no streak/gamification)
 - [ ] Tests: generator determinism + no-repeat within window; repository tests
 
 **Exit criteria:** same day â†’ same plan; consecutive days don't repeat recent picks Â·
@@ -321,4 +321,8 @@ loss-of-key path documented.
 
 
 - **2026-06-26** — M3: Implemented Bible Integration. Created Kotlin AppIntentChannel (isInstalled/launch/openStore), wired it into PlatformChannelRegistry, built Dart domain layer (BibleApp model, BibleRandomizerService with full Arabic book/chapter mappings), BibleAppsRepository, and updated the JourneyGrid dialog to detect/launch/install real Bible apps.
+
+
+
+- **2026-06-26** — M4: Added ReadingHistory Drift table (schema v2), ReadingJourneyRepository, exclusion param to BibleRandomizerService, and wired history tracking into the JourneyGrid dialog — accepted chapters won't reappear.
 
