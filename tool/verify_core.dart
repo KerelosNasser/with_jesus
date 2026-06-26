@@ -16,7 +16,7 @@ void main() {
   const f = Result<int>.failure(LocalFailure('errors.io'));
   assert(f.isFailure);
   assert(!f.isSuccess);
-  final fAsFailure = f as Failure<int>;
+  const fAsFailure = f as Failure<int>;
   assert(fAsFailure.failure is LocalFailure);
   assert(fAsFailure.failure.messageKey == 'errors.io');
   print('PASS: failure holds AppFailure');

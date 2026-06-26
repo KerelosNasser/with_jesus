@@ -123,17 +123,17 @@ class OnboardingPage3 extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          Icon(
+                            Icons.chevron_left,
+                            size: 20,
+                            color: colors.onPrimary,
+                          ),
+                          const SizedBox(width: 10),
                           Text(
                             'ابدأ الآن',
                             style: textTheme.labelLarge?.copyWith(
                               color: colors.onPrimary,
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 20,
-                            color: colors.onPrimary,
                           ),
                         ],
                       ),

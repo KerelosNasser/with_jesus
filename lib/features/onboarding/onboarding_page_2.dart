@@ -117,17 +117,17 @@ class OnboardingPage2 extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Icon(
+                            Icons.chevron_left,
+                            size: 20,
+                            color: colors.onPrimary,
+                          ),
+                          const SizedBox(width: 8),
                           Text(
                             'التالي',
                             style: textTheme.labelLarge?.copyWith(
                               color: colors.onPrimary,
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 20,
-                            color: colors.onPrimary,
                           ),
                         ],
                       ),

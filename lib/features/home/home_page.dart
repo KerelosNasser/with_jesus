@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_spacing.dart';
-import 'presentation/widgets/continue_reading_banner.dart';
-import 'presentation/widgets/journey_grid.dart';
-import 'presentation/widgets/shortcuts_row.dart';
+import 'presentation/widgets/bible_apps_launcher.dart';
+import 'presentation/widgets/journey_dock.dart';
 import 'presentation/widgets/verse_card.dart';
 
 /// Home screen — the main hub of مع يسوع.
@@ -50,27 +49,19 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // ── Shortcuts Row ──
+          // ── Bible Apps Launcher ──
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(bottom: AppSpacing.xl),
-              child: ShortcutsRow(),
+              child: BibleAppsLauncher(),
             ),
           ),
 
-          // ── Continue Reading Banner ──
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: AppSpacing.xl),
-              child: ContinueReadingBanner(),
-            ),
-          ),
-
-          // ── Randomized Journey Grid ──
+          // ── Journey Dock ──
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(bottom: AppSpacing.xxl),
-              child: JourneyGrid(),
+              child: JourneyDock(),
             ),
           ),
         ],

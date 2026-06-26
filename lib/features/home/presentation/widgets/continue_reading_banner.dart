@@ -7,19 +7,21 @@ class ContinueReadingBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.containerPadding),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.containerPadding,
+      ),
       child: Card(
         elevation: 0,
         color: colors.surfaceContainer,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
-          side: BorderSide(color: colors.outlineVariant.withOpacity(0.5)),
+          side: BorderSide(color: colors.outlineVariant.withValues(alpha: 0.5)),
         ),
         child: ListTile(
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.md, 
+            horizontal: AppSpacing.md,
             vertical: AppSpacing.xs,
           ),
           leading: Icon(Icons.menu_book, color: colors.primary),

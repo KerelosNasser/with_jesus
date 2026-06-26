@@ -14,4 +14,5 @@ class BibleApp {
 
 const kSupportedBibleApps = [
   BibleApp(id: 'coptic_reader', label: 'Coptic Reader', packageId: 'com.app.copticreader'),
+  BibleApp(id: 'youversion', label: 'YouVersion', packageId: 'com.sirma.mobile.bible.android'),
 ];

@@ -121,39 +121,39 @@ class OnboardingPage1 extends StatelessWidget {
                       activeIndex: 0,
                       activeColor: colors.primaryContainer,
                     ),
-                    FilledButton(
-                      onPressed: onNext,
-                      style: FilledButton.styleFrom(
-                        backgroundColor: colors.primaryContainer,
-                        foregroundColor: colors.onPrimary,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 28,
-                          vertical: 14,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            AppSpacing.radiusFull,
+                      FilledButton(
+                        onPressed: onNext,
+                        style: FilledButton.styleFrom(
+                          backgroundColor: colors.primaryContainer,
+                          foregroundColor: colors.onPrimary,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 28,
+                            vertical: 14,
                           ),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'التالي',
-                            style: textTheme.labelLarge?.copyWith(
-                              color: colors.onPrimary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              AppSpacing.radiusFull,
                             ),
                           ),
-                          const SizedBox(width: 8),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 20,
-                            color: colors.onPrimary,
-                          ),
-                        ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.chevron_left,
+                              size: 20,
+                              color: colors.onPrimary,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'التالي',
+                              style: textTheme.labelLarge?.copyWith(
+                                color: colors.onPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
