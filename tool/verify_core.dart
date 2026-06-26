@@ -7,13 +7,13 @@ import 'package:with_jesus/core/errors/app_failure.dart';
 import 'package:with_jesus/core/result/result.dart';
 
 void main() {
-  final s = Result<int>.success(42);
+  const s = Result<int>.success(42);
   assert(s.isSuccess);
   assert(!s.isFailure);
   assert(s.requireData == 42);
   print('PASS: success holds data');
 
-  final f = Result<int>.failure(LocalFailure('errors.io'));
+  const f = Result<int>.failure(LocalFailure('errors.io'));
   assert(f.isFailure);
   assert(!f.isSuccess);
   final fAsFailure = f as Failure<int>;
@@ -22,24 +22,24 @@ void main() {
   print('PASS: failure holds AppFailure');
 
   try {
-    Result<int>.failure(NotFoundFailure('x')).requireData;
+    const Result<int>.failure(NotFoundFailure('x')).requireData;
     assert(false, 'should throw');
   } on StateError {
     print('PASS: requireData throws StateError');
   }
 
-  final m1 = Result<int>.success(5).map((n) => n * 2);
+  final m1 = const Result<int>.success(5).map((n) => n * 2);
   assert(m1.isSuccess && m1.requireData == 10);
   print('PASS: map transforms success');
 
   const nf = NotFoundFailure('m');
-  final m2 = Result<int>.failure(nf).map((n) => n * 2);
+  final m2 = const Result<int>.failure(nf).map((n) => n * 2);
   assert(m2.isFailure);
   assert((m2 as Failure<int>).failure == nf);
   print('PASS: map propagates failure');
 
-  final m3 = Result<int>.success(7).map((n) => 'v$n');
-  assert(m3 is Success<String> && (m3 as Success<String>).data == 'v7');
+  final m3 = const Result<int>.success(7).map((n) => 'v$n');
+  assert(m3 is Success<String> && (m3).data == 'v7');
   print('PASS: map changes type param');
 
   assert(const Result<int>.success(1) == const Result<int>.success(1));

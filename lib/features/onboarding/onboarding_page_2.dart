@@ -28,17 +28,14 @@ class OnboardingPage2 extends StatelessWidget {
         child: Column(
           children: [
             // ── Progress Bars ──
-            FadeInUp(
+            const FadeInUp(
               child: Padding(
-                padding: const EdgeInsets.only(
+                padding: EdgeInsets.only(
                   top: AppSpacing.xl,
                   left: AppSpacing.containerPadding,
                   right: AppSpacing.containerPadding,
                 ),
-                child: OnboardingProgressBars(
-                  count: 3,
-                  activeIndex: 1,
-                ),
+                child: OnboardingProgressBars(count: 3, activeIndex: 1),
               ),
             ),
 
@@ -56,7 +53,9 @@ class OnboardingPage2 extends StatelessWidget {
                       delay: const Duration(milliseconds: 100),
                       child: MonasticIllustration(
                         icon: Icons.menu_book_outlined,
-                        glowColor: colors.secondaryContainer.withOpacity(0.5),
+                        glowColor: colors.secondaryContainer.withValues(
+                          alpha: 0.5,
+                        ),
                         iconSize: 100,
                         glowSize: 280,
                       ),
@@ -146,10 +145,7 @@ class OnboardingPage2 extends StatelessWidget {
                           ),
                         ),
                       ),
-                      child: Text(
-                        'تخطي',
-                        style: textTheme.labelLarge,
-                      ),
+                      child: Text('تخطي', style: textTheme.labelLarge),
                     ),
                   ],
                 ),

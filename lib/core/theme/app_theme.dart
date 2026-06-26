@@ -165,13 +165,11 @@ class AppTheme {
       // ── Scaffold & General ──
       scaffoldBackgroundColor: colors.surface,
       canvasColor: colors.surface,
-      dialogBackgroundColor: colors.surfaceContainerHigh,
-      dividerColor: colors.outlineVariant.withOpacity(0.4),
-      disabledColor: colors.onSurface.withOpacity(0.38),
+      dividerColor: colors.outlineVariant.withValues(alpha: 0.4),
+      disabledColor: colors.onSurface.withValues(alpha: 0.38),
       hintColor: colors.onSurfaceVariant,
-      indicatorColor: colors.primary,
-      splashColor: colors.primary.withOpacity(0.08),
-      highlightColor: colors.primary.withOpacity(0.04),
+      splashColor: colors.primary.withValues(alpha: 0.08),
+      highlightColor: colors.primary.withValues(alpha: 0.04),
 
       // ── App Bar ──
       appBarTheme: AppBarTheme(
@@ -194,36 +192,35 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(
-            color: colors.outline.withOpacity(0.12),
-          ),
+          side: BorderSide(color: colors.outline.withValues(alpha: 0.12)),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 6),
       ),
 
       // ── Elevated Button ──
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: colors.primaryContainer,
-          foregroundColor: colors.onPrimaryContainer,
-          elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          textStyle: textTheme.labelLarge,
-          minimumSize: const Size(48, 48),
-        ).copyWith(
-          overlayColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.pressed)) {
-              return colors.primary.withOpacity(0.12);
-            }
-            if (states.contains(WidgetState.hovered)) {
-              return colors.primary.withOpacity(0.08);
-            }
-            return null;
-          }),
-        ),
+        style:
+            ElevatedButton.styleFrom(
+              backgroundColor: colors.primaryContainer,
+              foregroundColor: colors.onPrimaryContainer,
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              textStyle: textTheme.labelLarge,
+              minimumSize: const Size(48, 48),
+            ).copyWith(
+              overlayColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.pressed)) {
+                  return colors.primary.withValues(alpha: 0.12);
+                }
+                if (states.contains(WidgetState.hovered)) {
+                  return colors.primary.withValues(alpha: 0.08);
+                }
+                return null;
+              }),
+            ),
       ),
 
       // ── Filled Button ──
@@ -233,9 +230,7 @@ class AppTheme {
           foregroundColor: colors.onPrimary,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           textStyle: textTheme.labelLarge,
           minimumSize: const Size(48, 48),
         ),
@@ -247,9 +242,7 @@ class AppTheme {
           foregroundColor: colors.onSurface,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           side: BorderSide(color: colors.outline, width: 1),
           textStyle: textTheme.labelLarge,
           minimumSize: const Size(48, 48),
@@ -258,29 +251,33 @@ class AppTheme {
 
       // ── Text Button ──
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: colors.onSurfaceVariant,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          textStyle: textTheme.labelLarge,
-          minimumSize: const Size(48, 48),
-        ).copyWith(
-          overlayColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.pressed)) {
-              return colors.primary.withOpacity(0.08);
-            }
-            return null;
-          }),
-        ),
+        style:
+            TextButton.styleFrom(
+              foregroundColor: colors.onSurfaceVariant,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              textStyle: textTheme.labelLarge,
+              minimumSize: const Size(48, 48),
+            ).copyWith(
+              overlayColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.pressed)) {
+                  return colors.primary.withValues(alpha: 0.08);
+                }
+                return null;
+              }),
+            ),
       ),
 
       // ── Input Decoration ──
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: colors.surfaceContainerLowest,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: colors.outline, width: 1),
@@ -308,7 +305,7 @@ class AppTheme {
           color: colors.primary,
         ),
         hintStyle: textTheme.bodyMedium?.copyWith(
-          color: colors.onSurfaceVariant.withOpacity(0.6),
+          color: colors.onSurfaceVariant.withValues(alpha: 0.6),
         ),
       ),
 
@@ -323,7 +320,7 @@ class AppTheme {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
-          side: BorderSide(color: colors.outline.withOpacity(0.2)),
+          side: BorderSide(color: colors.outline.withValues(alpha: 0.2)),
         ),
         showCheckmark: false,
       ),
@@ -333,9 +330,7 @@ class AppTheme {
         tileColor: colors.surfaceContainerLow,
         selectedTileColor: colors.surfaceContainerHigh,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         titleTextStyle: textTheme.bodyLarge,
         subtitleTextStyle: textTheme.bodyMedium?.copyWith(
           color: colors.onSurfaceVariant,
@@ -368,9 +363,7 @@ class AppTheme {
               fontWeight: FontWeight.w500,
             );
           }
-          return textTheme.labelSmall?.copyWith(
-            color: colors.onSurfaceVariant,
-          );
+          return textTheme.labelSmall?.copyWith(color: colors.onSurfaceVariant);
         }),
         iconTheme: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
@@ -386,18 +379,14 @@ class AppTheme {
         foregroundColor: colors.onPrimaryContainer,
         elevation: 0,
         highlightElevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
 
       // ── Dialog ──
       dialogTheme: DialogThemeData(
         backgroundColor: colors.surfaceContainerHigh,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
 
       // ── Switch ──
@@ -412,7 +401,7 @@ class AppTheme {
           if (states.contains(WidgetState.selected)) {
             return colors.primary;
           }
-          return colors.surfaceVariant;
+          return colors.surfaceContainerHighest;
         }),
         trackOutlineColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
@@ -440,7 +429,7 @@ class AppTheme {
         activeTrackColor: colors.primary,
         inactiveTrackColor: colors.surfaceContainerHighest,
         thumbColor: colors.primaryContainer,
-        overlayColor: colors.primary.withOpacity(0.12),
+        overlayColor: colors.primary.withValues(alpha: 0.12),
         trackHeight: 4,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
       ),
@@ -473,6 +462,7 @@ class AppTheme {
           color: colors.onInverseSurface,
         ),
       ),
+      tabBarTheme: TabBarThemeData(indicatorColor: colors.primary),
     );
   }
 
@@ -526,54 +516,18 @@ class AppTheme {
         height: 32,
       ),
       // title-lg: 22px / 500 / 28px
-      titleLarge: style(
-        fontSize: 22,
-        fontWeight: FontWeight.w500,
-        height: 28,
-      ),
-      titleMedium: style(
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-        height: 26,
-      ),
-      titleSmall: style(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        height: 24,
-      ),
+      titleLarge: style(fontSize: 22, fontWeight: FontWeight.w500, height: 28),
+      titleMedium: style(fontSize: 18, fontWeight: FontWeight.w500, height: 26),
+      titleSmall: style(fontSize: 16, fontWeight: FontWeight.w500, height: 24),
       // body-lg: 18px / 400 / 30px
-      bodyLarge: style(
-        fontSize: 18,
-        fontWeight: FontWeight.w400,
-        height: 30,
-      ),
+      bodyLarge: style(fontSize: 18, fontWeight: FontWeight.w400, height: 30),
       // body-md: 16px / 400 / 26px
-      bodyMedium: style(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        height: 26,
-      ),
-      bodySmall: style(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        height: 22,
-      ),
+      bodyMedium: style(fontSize: 16, fontWeight: FontWeight.w400, height: 26),
+      bodySmall: style(fontSize: 14, fontWeight: FontWeight.w400, height: 22),
       // label-lg: 14px / 500 / 20px
-      labelLarge: style(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        height: 20,
-      ),
-      labelMedium: style(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-        height: 18,
-      ),
-      labelSmall: style(
-        fontSize: 11,
-        fontWeight: FontWeight.w500,
-        height: 16,
-      ),
+      labelLarge: style(fontSize: 14, fontWeight: FontWeight.w500, height: 20),
+      labelMedium: style(fontSize: 12, fontWeight: FontWeight.w500, height: 18),
+      labelSmall: style(fontSize: 11, fontWeight: FontWeight.w500, height: 16),
     );
   }
 

@@ -50,10 +50,7 @@ class OnboardingPage1 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: Text(
-                      'تخطي',
-                      style: textTheme.labelLarge,
-                    ),
+                    child: Text('تخطي', style: textTheme.labelLarge),
                   ),
                 ),
               ),
@@ -73,7 +70,7 @@ class OnboardingPage1 extends StatelessWidget {
                       delay: const Duration(milliseconds: 100),
                       child: MonasticIllustration(
                         icon: Icons.light_mode_outlined,
-                        glowColor: colors.primary.withOpacity(0.08),
+                        glowColor: colors.primary.withValues(alpha: 0.08),
                         iconSize: 100,
                         glowSize: 260,
                       ),

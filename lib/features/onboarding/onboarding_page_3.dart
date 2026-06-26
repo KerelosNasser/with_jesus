@@ -10,10 +10,7 @@ import 'widgets/onboarding_widgets.dart';
 /// The final onboarding page with a centered illustration,
 /// title + body, a prominent "ابدأ الآن" button, and pagination dots.
 class OnboardingPage3 extends StatelessWidget {
-  const OnboardingPage3({
-    super.key,
-    required this.onStart,
-  });
+  const OnboardingPage3({super.key, required this.onStart});
 
   final VoidCallback onStart;
 
@@ -70,7 +67,7 @@ class OnboardingPage3 extends StatelessWidget {
                   const Spacer(flex: 1),
 
                   // ── Illustration ──
-                  FadeInUp(
+                  const FadeInUp(
                     child: MonasticIllustration(
                       icon: Icons.favorite,
                       iconSize: 100,
