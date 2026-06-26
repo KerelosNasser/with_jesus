@@ -46,7 +46,7 @@ dependencies:
 
   # Filesystem
   path_provider: ^2.1.5
-  file_picker: ^8.1.7
+  file_picker: 11.0.2
 
   # Permissions
   permission_handler: ^11.3.1
