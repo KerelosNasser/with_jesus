@@ -4,6 +4,8 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/widgets.dart';
 import '../../../../domain/bible/bible_randomizer_service.dart';
 import '../../../../data/bible/bible_apps_repository.dart';
+import '../../../../data/database/app_database.dart';
+import '../../../../data/reading_journey/reading_journey.dart';
 
 class JourneyGrid extends StatelessWidget {
   const JourneyGrid({super.key});
@@ -80,20 +82,39 @@ class _RandomizerDialogState extends State<_RandomizerDialog> {
   late ({String book, int chapter}) _suggestion;
   final _randomizer = BibleRandomizerService(random: Random());
   final _repository = BibleAppsRepository();
+  Set<String> _readHistory = {};
+  final ReadingJourneyRepository _journeyRepo = ReadingJourneyRepository(AppDatabase());
 
   @override
   void initState() {
     super.initState();
+    _loadHistory();
+  }
+
+  Future<void> _loadHistory() async {
+    final history = await _journeyRepo.getReadKeys();
+    if (!mounted) return;
+    setState(() => _readHistory = history);
     _reroll();
   }
 
   void _reroll() {
     setState(() {
-      _suggestion = _randomizer.randomForCategory(widget.category);
+      _suggestion = _randomizer.randomForCategory(
+        widget.category,
+        exclude: _readHistory,
+      );
     });
   }
 
   Future<void> _onRead() async {
+    // Save to reading history FIRST
+    await _journeyRepo.addReadEntry(
+      _suggestion.book,
+      _suggestion.chapter,
+      widget.category,
+    );
+
     final apps = await _repository.getInstalledApps();
     if (apps.isEmpty) {
       // No Bible apps installed → open store for first supported app

@@ -5,7 +5,10 @@ class BibleRandomizerService {
 
   BibleRandomizerService({Random? random}) : _random = random ?? Random();
 
-  ({String book, int chapter}) randomForCategory(String category) {
+  ({String book, int chapter}) randomForCategory(
+    String category, {
+    Set<String>? exclude,
+  }) {
     final books = _booksByCategory[category];
     if (books == null || books.isEmpty) {
       throw ArgumentError('Unknown category: $category');
@@ -14,6 +17,11 @@ class BibleRandomizerService {
     final entry = books[_random.nextInt(books.length)];
     final book = entry.book;
     final chapter = _random.nextInt(entry.chapters) + 1;
+
+    final key = '$book:$chapter';
+    if (exclude != null && exclude.contains(key)) {
+      return randomForCategory(category, exclude: exclude);
+    }
 
     return (book: book, chapter: chapter);
   }
