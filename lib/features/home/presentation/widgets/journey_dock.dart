@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../data/bible/bible_apps_repository.dart';
+import '../../../../data/reading_journey/continue_reading_repository.dart';
 import '../../../../domain/bible/bible_app.dart';
+import '../../../../domain/bible/bible_randomizer_service.dart';
 
 /// A stateful journey picker that lets the user roll random Bible-reading
 /// categories. Styled per the Stitch "Quietude & Light" design system.
@@ -9,16 +12,18 @@ import '../../../../domain/bible/bible_app.dart';
 /// When [_isRolled] is false each card shows a hidden-state ("؟") and its
 /// category label in [colors.outline]. Rolling reveals the icon + label in
 /// [colors.primary]. The user can accept the suggestion or re-roll.
-class JourneyDock extends StatefulWidget {
+class JourneyDock extends ConsumerStatefulWidget {
   /// Creates a [JourneyDock].
   const JourneyDock({super.key});
 
   @override
-  State<JourneyDock> createState() => _JourneyDockState();
+  ConsumerState<JourneyDock> createState() => _JourneyDockState();
 }
 
-class _JourneyDockState extends State<JourneyDock> {
-  bool _isRolled = false;
+class _JourneyDockState extends ConsumerState<JourneyDock> {
+  final BibleRandomizerService _randomizer = BibleRandomizerService();
+  List<_ReadingResult> _results = [];
+  bool get _isRolled => _results.isNotEmpty;
 
   static const List<_CategoryInfo> _categories = [
     _CategoryInfo('العهد القديم', Icons.auto_stories),
@@ -55,13 +60,13 @@ class _JourneyDockState extends State<JourneyDock> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildCard(_categories[0], colors),
+                  _buildCard(0, _categories[0], colors),
                   const SizedBox(width: AppSpacing.componentGap),
-                  _buildCard(_categories[1], colors),
+                  _buildCard(1, _categories[1], colors),
                   const SizedBox(width: AppSpacing.componentGap),
-                  _buildCard(_categories[2], colors),
+                  _buildCard(2, _categories[2], colors),
                   const SizedBox(width: AppSpacing.componentGap),
-                  _buildCard(_categories[3], colors),
+                  _buildCard(3, _categories[3], colors),
                 ],
               ),
             ),
@@ -84,7 +89,7 @@ class _JourneyDockState extends State<JourneyDock> {
                     borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
                   ),
                 ),
-                onPressed: () => setState(() => _isRolled = true),
+                onPressed: _onRoll,
                 icon: const Icon(Icons.casino),
                 label: const Text('تدوير الرحلة'),
               ),
@@ -107,7 +112,7 @@ class _JourneyDockState extends State<JourneyDock> {
                             BorderRadius.circular(AppSpacing.radiusFull),
                       ),
                     ),
-                    onPressed: () => setState(() => _isRolled = false),
+                    onPressed: _onReRoll,
                     icon: const Icon(Icons.refresh, size: 16),
                     label: const Text('إعادة التدوير'),
                   ),
@@ -123,16 +128,7 @@ class _JourneyDockState extends State<JourneyDock> {
                             BorderRadius.circular(AppSpacing.radiusFull),
                       ),
                     ),
-                    onPressed: () async {
-                      final youversion = kSupportedBibleApps.firstWhere(
-                        (app) => app.id == 'youversion',
-                      );
-                      final repo = BibleAppsRepository();
-                      final launched = await repo.launchApp(youversion);
-                      if (!launched && context.mounted) {
-                        await repo.openStore(youversion);
-                      }
-                    },
+                    onPressed: _onAccept,
                     icon: const Icon(Icons.check, size: 16),
                     label: const Text('قبول'),
                   ),
@@ -144,7 +140,57 @@ class _JourneyDockState extends State<JourneyDock> {
     );
   }
 
-  Widget _buildCard(_CategoryInfo category, ColorScheme colors) {
+  /// Generates random readings for all 4 categories using
+  /// [BibleRandomizerService] and updates the state to reveal them.
+  void _onRoll() {
+    final results = <_ReadingResult>[];
+    final exclude = <String>{};
+    for (final cat in _categories) {
+      final result = _randomizer.randomForCategory(
+        cat.label,
+        exclude: exclude,
+      );
+      exclude.add('${result.book}:${result.chapter}');
+      results.add(_ReadingResult(result.book, result.chapter));
+    }
+    setState(() => _results = results);
+  }
+
+  /// Resets the rolled state back to hidden cards.
+  void _onReRoll() {
+    setState(() {
+      _results = [];
+    });
+  }
+
+  /// Accepts the generated reading: saves the first (Old Testament) result
+  /// to [ContinueReadingRepository], then launches YouVersion.
+  Future<void> _onAccept() async {
+    if (_results.isEmpty) return;
+
+    // Save the first reading (Old Testament) as the "continue reading" point.
+    final first = _results[0];
+    await ref.read(continueReadingRepositoryProvider).upsert(
+          book: first.book,
+          chapter: first.chapter,
+          verse: null,
+          appUsed: 'youversion',
+        );
+    // Invalidate the continue-reading provider so the banner refreshes.
+    ref.invalidate(continueReadingProvider);
+
+    // Launch YouVersion.
+    final youversion = kSupportedBibleApps.firstWhere(
+      (app) => app.id == 'youversion',
+    );
+    final repo = BibleAppsRepository();
+    final launched = await repo.launchApp(youversion);
+    if (!launched && context.mounted) {
+      await repo.openStore(youversion);
+    }
+  }
+
+  Widget _buildCard(int index, _CategoryInfo category, ColorScheme colors) {
     return SizedBox(
       width: 80,
       height: 128,
@@ -159,14 +205,23 @@ class _JourneyDockState extends State<JourneyDock> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (_isRolled) ...[
+                if (_isRolled && index < _results.length) ...[
                   Icon(category.icon, size: 28, color: colors.primary),
                   const SizedBox(height: AppSpacing.sm),
                   Text(
-                    category.label,
-                    style: TextStyle(
+                    _results[index].book,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
                       fontSize: 10,
-                      color: colors.primary,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  Text(
+                    'أصحاح ${_results[index].chapter}',
+                    style: const TextStyle(
+                      fontSize: 9,
+                      color: Colors.black54,
                     ),
                   ),
                 ] else ...[
@@ -202,6 +257,14 @@ class _CategoryInfo {
   final IconData icon;
 
   const _CategoryInfo(this.label, this.icon);
+}
+
+/// A generated reading result: the book name and chapter number.
+class _ReadingResult {
+  final String book;
+  final int chapter;
+
+  const _ReadingResult(this.book, this.chapter);
 }
 
 /// Draws a dashed border around a rectangle with rounded corners.

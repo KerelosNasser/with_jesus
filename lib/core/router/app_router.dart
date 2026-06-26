@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/focus_retreat/focus_retreat.dart';
 import '../../features/home/home.dart';
+import '../../features/hymns/hymns.dart';
+import '../../features/journal/journal.dart';
 import '../../features/onboarding/onboarding.dart';
 import '../../features/settings/settings.dart';
 
@@ -28,8 +31,34 @@ final class AppRouter {
             builder: (context, state) => const HomePage(),
           ),
           GoRoute(
+            path: _RoutePaths.hymns,
+            builder: (context, state) => const HymnsPage(),
+          ),
+          GoRoute(
             path: _RoutePaths.settings,
             builder: (context, state) => const SettingsPage(),
+          ),
+          // ── Journal ──
+          GoRoute(
+            path: _RoutePaths.journal,
+            builder: (context, state) => const JournalListPage(),
+            routes: [
+              GoRoute(
+                path: 'composer',
+                builder: (context, state) {
+                  final idStr = state.uri.queryParameters['id'];
+                  return JournalComposerPage(
+                    entryId: idStr != null ? int.tryParse(idStr) : null,
+                  );
+                },
+              ),
+            ],
+          ),
+
+          // ── Fullscreen: outside bottom-nav shell ──
+          GoRoute(
+            path: _RoutePaths.focusRetreat,
+            builder: (context, state) => const FocusRetreatPage(),
           ),
         ],
       );
@@ -40,5 +69,8 @@ abstract final class _RoutePaths {
 
   static const onboarding = '/';
   static const home = '/home';
+  static const hymns = '/hymns';
+  static const journal = '/journal';
   static const settings = '/settings';
+  static const focusRetreat = '/focus-retreat';
 }

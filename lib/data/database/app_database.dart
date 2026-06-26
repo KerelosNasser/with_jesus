@@ -19,12 +19,37 @@ class ReadingHistory extends Table {
   Set<Column> get primaryKey => {book, chapter};
 }
 
-@DriftDatabase(tables: [ReadingHistory])
+class JournalEntries extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get category => text()();
+  BlobColumn get titleNonce => blob()();
+  BlobColumn get titleCiphertext => blob()();
+  BlobColumn get titleMac => blob()();
+  BlobColumn get bodyNonce => blob()();
+  BlobColumn get bodyCiphertext => blob()();
+  BlobColumn get bodyMac => blob()();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+}
+
+class ContinueReading extends Table {
+  IntColumn get id => integer().withDefault(const Constant(1))();
+  TextColumn get book => text()();
+  IntColumn get chapter => integer()();
+  IntColumn get verse => integer().nullable()();
+  TextColumn get appUsed => text()();
+  TextColumn get updatedAt => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DriftDatabase(tables: [ReadingHistory, ContinueReading, JournalEntries])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration {
@@ -35,6 +60,12 @@ class AppDatabase extends _$AppDatabase {
       onUpgrade: (Migrator m, int from, int to) async {
         if (from < 2) {
           await m.createTable(readingHistory);
+        }
+        if (from < 3) {
+          await m.createTable(continueReading);
+        }
+        if (from < 4) {
+          await m.createTable(journalEntries);
         }
       },
       beforeOpen: (details) async {

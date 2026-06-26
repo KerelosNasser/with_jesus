@@ -42,6 +42,9 @@ dependencies:
   # Audio playback (offline, local URIs, ExoPlayer/AVAudioPlayer)
   just_audio: ^0.9.40
 
+  # Reactive stream combinators (combineLatest3 for position streams)
+  rxdart: ^0.28.0
+
   # Audio background / media session / notification
   audio_service: ^0.18.15
 

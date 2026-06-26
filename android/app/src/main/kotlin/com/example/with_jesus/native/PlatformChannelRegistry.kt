@@ -15,13 +15,9 @@ object PlatformChannelRegistry {
     fun registerChannels(flutterEngine: FlutterEngine, context: Context) {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, INTENT_CHANNEL).setMethodCallHandler(AppIntentChannel(context))
 
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, MEDIA_STORE_CHANNEL).setMethodCallHandler { call, result ->
-            result.notImplemented()
-        }
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, MEDIA_STORE_CHANNEL).setMethodCallHandler(MediaStoreChannel(context))
 
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, LAUNCHER_CHANNEL).setMethodCallHandler { call, result ->
-            result.notImplemented()
-        }
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, LAUNCHER_CHANNEL).setMethodCallHandler(LauncherChannel(context))
 
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, USAGE_STATS_CHANNEL).setMethodCallHandler { call, result ->
             result.notImplemented()

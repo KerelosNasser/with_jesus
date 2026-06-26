@@ -1,5 +1,8 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../data/hymns/hymns_audio_handler.dart';
 
 /// Manages async initialization before the app runs.
 ///
@@ -9,15 +12,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class Bootstrap {
   /// Initialize all async dependencies and return a [ProviderContainer].
   ///
-  /// Future: wire up Drift, secure storage, shared prefs, and audio service here.
+  /// Wires up the [AudioService] and initializes the [HymnsAudioHandler] as a
+  /// singleton provider. Future: add Drift, secure storage, shared prefs.
   static Future<ProviderContainer> init() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    // Future: init Drift, secure storage, prefs, audio handler here
+    // Init audio_service for background hymn playback.
+    final audioHandler = await AudioService.init(
+      builder: () => HymnsAudioHandler(),
+      config: const AudioServiceConfig(
+        androidNotificationChannelId: 'com.with_jesus.hymns',
+        androidNotificationChannelName: 'Hymns',
+        androidNotificationOngoing: true,
+        androidStopForegroundOnPause: true,
+      ),
+    );
 
     return ProviderContainer(
       overrides: [
-        // Future: provide initialized singletons here
+        audioHandlerProvider.overrideWithValue(audioHandler),
       ],
     );
   }
