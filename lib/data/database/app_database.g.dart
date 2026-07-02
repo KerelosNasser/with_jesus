@@ -1327,6 +1327,434 @@ class JournalEntriesCompanion extends UpdateCompanion<JournalEntry> {
   }
 }
 
+class $DetoxReflectionsTable extends DetoxReflections
+    with TableInfo<$DetoxReflectionsTable, DetoxReflection> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DetoxReflectionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _promptKeyMeta = const VerificationMeta(
+    'promptKey',
+  );
+  @override
+  late final GeneratedColumn<String> promptKey = GeneratedColumn<String>(
+    'prompt_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _answerNonceMeta = const VerificationMeta(
+    'answerNonce',
+  );
+  @override
+  late final GeneratedColumn<Uint8List> answerNonce =
+      GeneratedColumn<Uint8List>(
+        'answer_nonce',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _answerCiphertextMeta = const VerificationMeta(
+    'answerCiphertext',
+  );
+  @override
+  late final GeneratedColumn<Uint8List> answerCiphertext =
+      GeneratedColumn<Uint8List>(
+        'answer_ciphertext',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _answerMacMeta = const VerificationMeta(
+    'answerMac',
+  );
+  @override
+  late final GeneratedColumn<Uint8List> answerMac = GeneratedColumn<Uint8List>(
+    'answer_mac',
+    aliasedName,
+    true,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    promptKey,
+    answerNonce,
+    answerCiphertext,
+    answerMac,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'detox_reflections';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<DetoxReflection> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('prompt_key')) {
+      context.handle(
+        _promptKeyMeta,
+        promptKey.isAcceptableOrUnknown(data['prompt_key']!, _promptKeyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_promptKeyMeta);
+    }
+    if (data.containsKey('answer_nonce')) {
+      context.handle(
+        _answerNonceMeta,
+        answerNonce.isAcceptableOrUnknown(
+          data['answer_nonce']!,
+          _answerNonceMeta,
+        ),
+      );
+    }
+    if (data.containsKey('answer_ciphertext')) {
+      context.handle(
+        _answerCiphertextMeta,
+        answerCiphertext.isAcceptableOrUnknown(
+          data['answer_ciphertext']!,
+          _answerCiphertextMeta,
+        ),
+      );
+    }
+    if (data.containsKey('answer_mac')) {
+      context.handle(
+        _answerMacMeta,
+        answerMac.isAcceptableOrUnknown(data['answer_mac']!, _answerMacMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DetoxReflection map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DetoxReflection(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      promptKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}prompt_key'],
+      )!,
+      answerNonce: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}answer_nonce'],
+      ),
+      answerCiphertext: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}answer_ciphertext'],
+      ),
+      answerMac: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}answer_mac'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $DetoxReflectionsTable createAlias(String alias) {
+    return $DetoxReflectionsTable(attachedDatabase, alias);
+  }
+}
+
+class DetoxReflection extends DataClass implements Insertable<DetoxReflection> {
+  final int id;
+  final String promptKey;
+  final Uint8List? answerNonce;
+  final Uint8List? answerCiphertext;
+  final Uint8List? answerMac;
+  final DateTime createdAt;
+  const DetoxReflection({
+    required this.id,
+    required this.promptKey,
+    this.answerNonce,
+    this.answerCiphertext,
+    this.answerMac,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['prompt_key'] = Variable<String>(promptKey);
+    if (!nullToAbsent || answerNonce != null) {
+      map['answer_nonce'] = Variable<Uint8List>(answerNonce);
+    }
+    if (!nullToAbsent || answerCiphertext != null) {
+      map['answer_ciphertext'] = Variable<Uint8List>(answerCiphertext);
+    }
+    if (!nullToAbsent || answerMac != null) {
+      map['answer_mac'] = Variable<Uint8List>(answerMac);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  DetoxReflectionsCompanion toCompanion(bool nullToAbsent) {
+    return DetoxReflectionsCompanion(
+      id: Value(id),
+      promptKey: Value(promptKey),
+      answerNonce: answerNonce == null && nullToAbsent
+          ? const Value.absent()
+          : Value(answerNonce),
+      answerCiphertext: answerCiphertext == null && nullToAbsent
+          ? const Value.absent()
+          : Value(answerCiphertext),
+      answerMac: answerMac == null && nullToAbsent
+          ? const Value.absent()
+          : Value(answerMac),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory DetoxReflection.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DetoxReflection(
+      id: serializer.fromJson<int>(json['id']),
+      promptKey: serializer.fromJson<String>(json['promptKey']),
+      answerNonce: serializer.fromJson<Uint8List?>(json['answerNonce']),
+      answerCiphertext: serializer.fromJson<Uint8List?>(
+        json['answerCiphertext'],
+      ),
+      answerMac: serializer.fromJson<Uint8List?>(json['answerMac']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'promptKey': serializer.toJson<String>(promptKey),
+      'answerNonce': serializer.toJson<Uint8List?>(answerNonce),
+      'answerCiphertext': serializer.toJson<Uint8List?>(answerCiphertext),
+      'answerMac': serializer.toJson<Uint8List?>(answerMac),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  DetoxReflection copyWith({
+    int? id,
+    String? promptKey,
+    Value<Uint8List?> answerNonce = const Value.absent(),
+    Value<Uint8List?> answerCiphertext = const Value.absent(),
+    Value<Uint8List?> answerMac = const Value.absent(),
+    DateTime? createdAt,
+  }) => DetoxReflection(
+    id: id ?? this.id,
+    promptKey: promptKey ?? this.promptKey,
+    answerNonce: answerNonce.present ? answerNonce.value : this.answerNonce,
+    answerCiphertext: answerCiphertext.present
+        ? answerCiphertext.value
+        : this.answerCiphertext,
+    answerMac: answerMac.present ? answerMac.value : this.answerMac,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  DetoxReflection copyWithCompanion(DetoxReflectionsCompanion data) {
+    return DetoxReflection(
+      id: data.id.present ? data.id.value : this.id,
+      promptKey: data.promptKey.present ? data.promptKey.value : this.promptKey,
+      answerNonce: data.answerNonce.present
+          ? data.answerNonce.value
+          : this.answerNonce,
+      answerCiphertext: data.answerCiphertext.present
+          ? data.answerCiphertext.value
+          : this.answerCiphertext,
+      answerMac: data.answerMac.present ? data.answerMac.value : this.answerMac,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DetoxReflection(')
+          ..write('id: $id, ')
+          ..write('promptKey: $promptKey, ')
+          ..write('answerNonce: $answerNonce, ')
+          ..write('answerCiphertext: $answerCiphertext, ')
+          ..write('answerMac: $answerMac, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    promptKey,
+    $driftBlobEquality.hash(answerNonce),
+    $driftBlobEquality.hash(answerCiphertext),
+    $driftBlobEquality.hash(answerMac),
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DetoxReflection &&
+          other.id == this.id &&
+          other.promptKey == this.promptKey &&
+          $driftBlobEquality.equals(other.answerNonce, this.answerNonce) &&
+          $driftBlobEquality.equals(
+            other.answerCiphertext,
+            this.answerCiphertext,
+          ) &&
+          $driftBlobEquality.equals(other.answerMac, this.answerMac) &&
+          other.createdAt == this.createdAt);
+}
+
+class DetoxReflectionsCompanion extends UpdateCompanion<DetoxReflection> {
+  final Value<int> id;
+  final Value<String> promptKey;
+  final Value<Uint8List?> answerNonce;
+  final Value<Uint8List?> answerCiphertext;
+  final Value<Uint8List?> answerMac;
+  final Value<DateTime> createdAt;
+  const DetoxReflectionsCompanion({
+    this.id = const Value.absent(),
+    this.promptKey = const Value.absent(),
+    this.answerNonce = const Value.absent(),
+    this.answerCiphertext = const Value.absent(),
+    this.answerMac = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  DetoxReflectionsCompanion.insert({
+    this.id = const Value.absent(),
+    required String promptKey,
+    this.answerNonce = const Value.absent(),
+    this.answerCiphertext = const Value.absent(),
+    this.answerMac = const Value.absent(),
+    required DateTime createdAt,
+  }) : promptKey = Value(promptKey),
+       createdAt = Value(createdAt);
+  static Insertable<DetoxReflection> custom({
+    Expression<int>? id,
+    Expression<String>? promptKey,
+    Expression<Uint8List>? answerNonce,
+    Expression<Uint8List>? answerCiphertext,
+    Expression<Uint8List>? answerMac,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (promptKey != null) 'prompt_key': promptKey,
+      if (answerNonce != null) 'answer_nonce': answerNonce,
+      if (answerCiphertext != null) 'answer_ciphertext': answerCiphertext,
+      if (answerMac != null) 'answer_mac': answerMac,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  DetoxReflectionsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? promptKey,
+    Value<Uint8List?>? answerNonce,
+    Value<Uint8List?>? answerCiphertext,
+    Value<Uint8List?>? answerMac,
+    Value<DateTime>? createdAt,
+  }) {
+    return DetoxReflectionsCompanion(
+      id: id ?? this.id,
+      promptKey: promptKey ?? this.promptKey,
+      answerNonce: answerNonce ?? this.answerNonce,
+      answerCiphertext: answerCiphertext ?? this.answerCiphertext,
+      answerMac: answerMac ?? this.answerMac,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (promptKey.present) {
+      map['prompt_key'] = Variable<String>(promptKey.value);
+    }
+    if (answerNonce.present) {
+      map['answer_nonce'] = Variable<Uint8List>(answerNonce.value);
+    }
+    if (answerCiphertext.present) {
+      map['answer_ciphertext'] = Variable<Uint8List>(answerCiphertext.value);
+    }
+    if (answerMac.present) {
+      map['answer_mac'] = Variable<Uint8List>(answerMac.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DetoxReflectionsCompanion(')
+          ..write('id: $id, ')
+          ..write('promptKey: $promptKey, ')
+          ..write('answerNonce: $answerNonce, ')
+          ..write('answerCiphertext: $answerCiphertext, ')
+          ..write('answerMac: $answerMac, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1335,6 +1763,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     this,
   );
   late final $JournalEntriesTable journalEntries = $JournalEntriesTable(this);
+  late final $DetoxReflectionsTable detoxReflections = $DetoxReflectionsTable(
+    this,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1343,6 +1774,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     readingHistory,
     continueReading,
     journalEntries,
+    detoxReflections,
   ];
 }
 
@@ -2053,6 +2485,229 @@ typedef $$JournalEntriesTableProcessedTableManager =
       JournalEntry,
       PrefetchHooks Function()
     >;
+typedef $$DetoxReflectionsTableCreateCompanionBuilder =
+    DetoxReflectionsCompanion Function({
+      Value<int> id,
+      required String promptKey,
+      Value<Uint8List?> answerNonce,
+      Value<Uint8List?> answerCiphertext,
+      Value<Uint8List?> answerMac,
+      required DateTime createdAt,
+    });
+typedef $$DetoxReflectionsTableUpdateCompanionBuilder =
+    DetoxReflectionsCompanion Function({
+      Value<int> id,
+      Value<String> promptKey,
+      Value<Uint8List?> answerNonce,
+      Value<Uint8List?> answerCiphertext,
+      Value<Uint8List?> answerMac,
+      Value<DateTime> createdAt,
+    });
+
+class $$DetoxReflectionsTableFilterComposer
+    extends Composer<_$AppDatabase, $DetoxReflectionsTable> {
+  $$DetoxReflectionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get promptKey => $composableBuilder(
+    column: $table.promptKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<Uint8List> get answerNonce => $composableBuilder(
+    column: $table.answerNonce,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<Uint8List> get answerCiphertext => $composableBuilder(
+    column: $table.answerCiphertext,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<Uint8List> get answerMac => $composableBuilder(
+    column: $table.answerMac,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$DetoxReflectionsTableOrderingComposer
+    extends Composer<_$AppDatabase, $DetoxReflectionsTable> {
+  $$DetoxReflectionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get promptKey => $composableBuilder(
+    column: $table.promptKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<Uint8List> get answerNonce => $composableBuilder(
+    column: $table.answerNonce,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<Uint8List> get answerCiphertext => $composableBuilder(
+    column: $table.answerCiphertext,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<Uint8List> get answerMac => $composableBuilder(
+    column: $table.answerMac,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$DetoxReflectionsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DetoxReflectionsTable> {
+  $$DetoxReflectionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get promptKey =>
+      $composableBuilder(column: $table.promptKey, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get answerNonce => $composableBuilder(
+    column: $table.answerNonce,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<Uint8List> get answerCiphertext => $composableBuilder(
+    column: $table.answerCiphertext,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<Uint8List> get answerMac =>
+      $composableBuilder(column: $table.answerMac, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$DetoxReflectionsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DetoxReflectionsTable,
+          DetoxReflection,
+          $$DetoxReflectionsTableFilterComposer,
+          $$DetoxReflectionsTableOrderingComposer,
+          $$DetoxReflectionsTableAnnotationComposer,
+          $$DetoxReflectionsTableCreateCompanionBuilder,
+          $$DetoxReflectionsTableUpdateCompanionBuilder,
+          (
+            DetoxReflection,
+            BaseReferences<
+              _$AppDatabase,
+              $DetoxReflectionsTable,
+              DetoxReflection
+            >,
+          ),
+          DetoxReflection,
+          PrefetchHooks Function()
+        > {
+  $$DetoxReflectionsTableTableManager(
+    _$AppDatabase db,
+    $DetoxReflectionsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DetoxReflectionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DetoxReflectionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DetoxReflectionsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> promptKey = const Value.absent(),
+                Value<Uint8List?> answerNonce = const Value.absent(),
+                Value<Uint8List?> answerCiphertext = const Value.absent(),
+                Value<Uint8List?> answerMac = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => DetoxReflectionsCompanion(
+                id: id,
+                promptKey: promptKey,
+                answerNonce: answerNonce,
+                answerCiphertext: answerCiphertext,
+                answerMac: answerMac,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String promptKey,
+                Value<Uint8List?> answerNonce = const Value.absent(),
+                Value<Uint8List?> answerCiphertext = const Value.absent(),
+                Value<Uint8List?> answerMac = const Value.absent(),
+                required DateTime createdAt,
+              }) => DetoxReflectionsCompanion.insert(
+                id: id,
+                promptKey: promptKey,
+                answerNonce: answerNonce,
+                answerCiphertext: answerCiphertext,
+                answerMac: answerMac,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$DetoxReflectionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DetoxReflectionsTable,
+      DetoxReflection,
+      $$DetoxReflectionsTableFilterComposer,
+      $$DetoxReflectionsTableOrderingComposer,
+      $$DetoxReflectionsTableAnnotationComposer,
+      $$DetoxReflectionsTableCreateCompanionBuilder,
+      $$DetoxReflectionsTableUpdateCompanionBuilder,
+      (
+        DetoxReflection,
+        BaseReferences<_$AppDatabase, $DetoxReflectionsTable, DetoxReflection>,
+      ),
+      DetoxReflection,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -2063,4 +2718,6 @@ class $AppDatabaseManager {
       $$ContinueReadingTableTableManager(_db, _db.continueReading);
   $$JournalEntriesTableTableManager get journalEntries =>
       $$JournalEntriesTableTableManager(_db, _db.journalEntries);
+  $$DetoxReflectionsTableTableManager get detoxReflections =>
+      $$DetoxReflectionsTableTableManager(_db, _db.detoxReflections);
 }

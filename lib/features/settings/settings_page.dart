@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_spacing.dart';
+import 'package:with_jesus/core/l10n/app_localizations.dart';
+import 'package:with_jesus/features/detox/presentation/providers/detox_launcher_provider.dart';
 
 /// Settings screen matching the stitch-ui design.
 ///
@@ -8,18 +12,33 @@ import '../../../core/theme/app_spacing.dart';
 /// - TopAppBar with menu, title, and profile icons
 /// - Sectioned list groups with Material 3 style
 /// - Toggle switches and navigation rows
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  ConsumerState<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsPageState extends ConsumerState<SettingsPage> {
   bool _focusMode = true;
+  bool _detoxAlwaysOn = false;
+
+  String _launcherStatusText(AppLocalizations l) {
+    final asyncStatus = ref.watch(detoxLauncherStatusProvider);
+    return asyncStatus.when(
+      data: (status) => status.isDefault ? l.detoxLauncherActive : l.detoxLauncherDefault,
+      loading: () => '...',
+      error: (_, _) => l.detoxLauncherDefault,
+    );
+  }
+
+  Future<void> _requestLauncherRole() async {
+    await requestLauncherRole(ref);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -40,7 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onPressed: () {},
             ),
             title: Text(
-              'مع يسوع',
+              l.appTitle,
               style: textTheme.headlineMedium?.copyWith(
                 color: colors.primary,
               ),
@@ -137,6 +156,36 @@ class _SettingsPageState extends State<SettingsPage> {
                 icon: Icons.lock_outlined,
                 title: 'الخصوصية',
                 onTap: () {},
+              ),
+            ],
+          ),
+
+          const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.xxl)),
+
+          // ── Group 3: Detox ──
+          _SettingsGroup(
+            children: [
+              _SettingsListItem(
+                icon: Icons.do_not_disturb_outlined,
+                title: l.detoxAlwaysOn,
+                subtitle: l.detoxAlwaysOnDesc,
+                trailing: Switch(
+                  value: _detoxAlwaysOn,
+                  onChanged: (value) {
+                    setState(() => _detoxAlwaysOn = value);
+                  },
+                ),
+              ),
+              _SettingsListItem(
+                icon: Icons.widgets_outlined,
+                title: l.detoxLauncherDefault,
+                subtitle: _launcherStatusText(l),
+                onTap: () => _requestLauncherRole(),
+              ),
+              _SettingsListItem(
+                icon: Icons.auto_stories_outlined,
+                title: l.detoxReflectionsTitle,
+                onTap: () => context.go('/detox/reflections'),
               ),
             ],
           ),

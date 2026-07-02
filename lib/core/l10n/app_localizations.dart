@@ -103,6 +103,348 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'With Jesus'**
   String get appTitle;
+
+  /// No description provided for @detoxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Detox'**
+  String get detoxTitle;
+
+  /// No description provided for @detoxSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a mindful break from your phone'**
+  String get detoxSubtitle;
+
+  /// No description provided for @detoxStartSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin Detox'**
+  String get detoxStartSession;
+
+  /// No description provided for @detoxEndSession.
+  ///
+  /// In en, this message translates to:
+  /// **'End Session'**
+  String get detoxEndSession;
+
+  /// No description provided for @detoxActiveSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Detox Session Active'**
+  String get detoxActiveSession;
+
+  /// No description provided for @detoxTimeRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Remaining'**
+  String get detoxTimeRemaining;
+
+  /// No description provided for @detoxDurationQuarter.
+  ///
+  /// In en, this message translates to:
+  /// **'15 min'**
+  String get detoxDurationQuarter;
+
+  /// No description provided for @detoxDurationHalf.
+  ///
+  /// In en, this message translates to:
+  /// **'30 min'**
+  String get detoxDurationHalf;
+
+  /// No description provided for @detoxDurationFull.
+  ///
+  /// In en, this message translates to:
+  /// **'60 min'**
+  String get detoxDurationFull;
+
+  /// No description provided for @detoxReflectionPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you begin, reflect on this:'**
+  String get detoxReflectionPrompt;
+
+  /// No description provided for @detoxReflectionSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Reflection'**
+  String get detoxReflectionSkip;
+
+  /// No description provided for @detoxReflectionContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get detoxReflectionContinue;
+
+  /// No description provided for @detoxReflectionAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reflection (optional)'**
+  String get detoxReflectionAnswer;
+
+  /// No description provided for @detoxReflectionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Reflections'**
+  String get detoxReflectionsTitle;
+
+  /// No description provided for @detoxReflectionsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No reflections yet'**
+  String get detoxReflectionsEmpty;
+
+  /// No description provided for @detoxReflectionsEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your detox reflections will appear here'**
+  String get detoxReflectionsEmptySubtitle;
+
+  /// No description provided for @detoxReflectionDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this reflection?'**
+  String get detoxReflectionDeleteConfirm;
+
+  /// No description provided for @detoxLauncherDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Set as default launcher'**
+  String get detoxLauncherDefault;
+
+  /// No description provided for @detoxLauncherActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Currently your default launcher'**
+  String get detoxLauncherActive;
+
+  /// No description provided for @detoxAlwaysOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Always-on Detox'**
+  String get detoxAlwaysOn;
+
+  /// No description provided for @detoxAlwaysOnDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable phone detox as a persistent feature'**
+  String get detoxAlwaysOnDesc;
+
+  /// No description provided for @detoxSessionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Session Complete'**
+  String get detoxSessionComplete;
+
+  /// No description provided for @detoxSessionCompleteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done. You took a mindful break.'**
+  String get detoxSessionCompleteMessage;
+
+  /// No description provided for @detoxBreathe.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathe'**
+  String get detoxBreathe;
+
+  /// No description provided for @detoxPromptWhyNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Why do you want to reduce phone time today?'**
+  String get detoxPromptWhyNow;
+
+  /// No description provided for @detoxPromptWhatInstead.
+  ///
+  /// In en, this message translates to:
+  /// **'What would you rather do with this time?'**
+  String get detoxPromptWhatInstead;
+
+  /// No description provided for @detoxPromptOneThingForGod.
+  ///
+  /// In en, this message translates to:
+  /// **'What is one thing you can offer to God today?'**
+  String get detoxPromptOneThingForGod;
+
+  /// No description provided for @detoxPromptJustBreathe.
+  ///
+  /// In en, this message translates to:
+  /// **'Can you just breathe for a moment?'**
+  String get detoxPromptJustBreathe;
+
+  /// No description provided for @homeTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeTab;
+
+  /// No description provided for @hymnsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Hymns'**
+  String get hymnsTab;
+
+  /// No description provided for @journalTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal'**
+  String get journalTab;
+
+  /// No description provided for @focusTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get focusTab;
+
+  /// No description provided for @calmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm'**
+  String get calmTitle;
+
+  /// No description provided for @calmBreathe.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathe'**
+  String get calmBreathe;
+
+  /// No description provided for @calmPrayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer'**
+  String get calmPrayer;
+
+  /// No description provided for @calmAmbience.
+  ///
+  /// In en, this message translates to:
+  /// **'Ambience'**
+  String get calmAmbience;
+
+  /// No description provided for @calmBreathing478.
+  ///
+  /// In en, this message translates to:
+  /// **'4-7-8 Relaxing'**
+  String get calmBreathing478;
+
+  /// No description provided for @calmBreathingBox.
+  ///
+  /// In en, this message translates to:
+  /// **'Box Breathing'**
+  String get calmBreathingBox;
+
+  /// No description provided for @calmBreathingCoherent.
+  ///
+  /// In en, this message translates to:
+  /// **'Coherent (5-5)'**
+  String get calmBreathingCoherent;
+
+  /// No description provided for @calmBreathingDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Gentle (4-6)'**
+  String get calmBreathingDefault;
+
+  /// No description provided for @calmPhaseInhale.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathe in'**
+  String get calmPhaseInhale;
+
+  /// No description provided for @calmPhaseHold.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold'**
+  String get calmPhaseHold;
+
+  /// No description provided for @calmPhaseExhale.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathe out'**
+  String get calmPhaseExhale;
+
+  /// No description provided for @calmPhaseHoldAfterExhale.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold'**
+  String get calmPhaseHoldAfterExhale;
+
+  /// No description provided for @calmPrayerTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer Timer'**
+  String get calmPrayerTimer;
+
+  /// No description provided for @calmPrayerChime.
+  ///
+  /// In en, this message translates to:
+  /// **'Chime at end'**
+  String get calmPrayerChime;
+
+  /// No description provided for @calmPrayerClosingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing words'**
+  String get calmPrayerClosingText;
+
+  /// No description provided for @calmPrayerStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin'**
+  String get calmPrayerStart;
+
+  /// No description provided for @calmPrayerEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'End prayer'**
+  String get calmPrayerEnd;
+
+  /// No description provided for @calmPrayerComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Amen'**
+  String get calmPrayerComplete;
+
+  /// No description provided for @calmAmbienceRain.
+  ///
+  /// In en, this message translates to:
+  /// **'Rain'**
+  String get calmAmbienceRain;
+
+  /// No description provided for @calmAmbienceChurchBells.
+  ///
+  /// In en, this message translates to:
+  /// **'Church Bells'**
+  String get calmAmbienceChurchBells;
+
+  /// No description provided for @calmAmbienceWind.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind'**
+  String get calmAmbienceWind;
+
+  /// No description provided for @calmAmbienceChantEcho.
+  ///
+  /// In en, this message translates to:
+  /// **'Chant Echo'**
+  String get calmAmbienceChantEcho;
+
+  /// No description provided for @calmAmbienceVolume.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get calmAmbienceVolume;
+
+  /// No description provided for @calmSelectPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a pattern'**
+  String get calmSelectPattern;
+
+  /// No description provided for @calmSelectDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose duration'**
+  String get calmSelectDuration;
 }
 
 class _AppLocalizationsDelegate

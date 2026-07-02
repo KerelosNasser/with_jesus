@@ -44,12 +44,24 @@ class ContinueReading extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [ReadingHistory, ContinueReading, JournalEntries])
+class DetoxReflections extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get promptKey => text()();
+  BlobColumn get answerNonce => blob().nullable()();
+  BlobColumn get answerCiphertext => blob().nullable()();
+  BlobColumn get answerMac => blob().nullable()();
+  DateTimeColumn get createdAt => dateTime()();
+}
+
+@DriftDatabase(tables: [ReadingHistory, ContinueReading, JournalEntries, DetoxReflections])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
+  /// Testing-only constructor: open against a provided [e] (e.g. in-memory).
+  AppDatabase.forTesting(QueryExecutor e) : super(e);
+
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration {
@@ -67,11 +79,57 @@ class AppDatabase extends _$AppDatabase {
         if (from < 4) {
           await m.createTable(journalEntries);
         }
+        if (from < 5) {
+          await m.createTable(detoxReflections);
+        }
       },
       beforeOpen: (details) async {
         await customStatement('PRAGMA foreign_keys = ON');
       },
     );
+  }
+
+  // ---------------------------------------------------------------------------
+  // DetoxReflections helpers
+  // ---------------------------------------------------------------------------
+
+  /// Returns a reactive stream of all detox reflections, newest first.
+  Stream<List<DetoxReflection>> streamForReflections() {
+    return (select(detoxReflections)
+      ..orderBy([(t) => OrderingTerm.desc(t.createdAt)]))
+        .watch();
+  }
+
+  /// Returns all detox reflections from the database, newest first.
+  Future<List<DetoxReflection>> getAllReflections() {
+    return (select(detoxReflections)
+      ..orderBy([(t) => OrderingTerm.desc(t.createdAt)]))
+        .get();
+  }
+
+  /// Inserts a new detox reflection row.
+  Future<void> insertReflection({
+    required String promptKey,
+    Uint8List? answerNonce,
+    Uint8List? answerCiphertext,
+    Uint8List? answerMac,
+  }) {
+    return into(detoxReflections).insert(
+      DetoxReflectionsCompanion.insert(
+        promptKey: promptKey,
+        answerNonce:
+            answerNonce != null ? Value(answerNonce) : Value.absent(),
+        answerCiphertext:
+            answerCiphertext != null ? Value(answerCiphertext) : Value.absent(),
+        answerMac: answerMac != null ? Value(answerMac) : Value.absent(),
+        createdAt: DateTime.now(),
+      ),
+    );
+  }
+
+  /// Deletes a detox reflection by [id].
+  Future<void> deleteReflection(int id) {
+    return (delete(detoxReflections)..where((t) => t.id.equals(id))).go();
   }
 }
 

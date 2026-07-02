@@ -32,6 +32,13 @@ class AppTextField extends StatelessWidget {
   /// When `true`, hides the typed text (e.g. for passwords).
   final bool obscureText;
 
+  /// The maximum number of lines for the text field to display.
+  ///
+  /// When null (default), the field expands to fit its content.
+  /// Set to 1 for a single-line input, or a higher value for a multi-line
+  /// area that scrolls once the content exceeds [maxLines].
+  final int? maxLines;
+
   /// An optional icon placed at the start of the input.
   final Widget? prefixIcon;
 
@@ -43,6 +50,7 @@ class AppTextField extends StatelessWidget {
     this.hintText,
     this.errorText,
     this.obscureText = false,
+    this.maxLines,
     this.prefixIcon,
   });
 
@@ -76,6 +84,7 @@ class AppTextField extends StatelessWidget {
         TextField(
           controller: controller,
           obscureText: obscureText,
+          maxLines: maxLines,
           decoration: InputDecoration(
             hintText: hintText,
             errorText: errorText,
